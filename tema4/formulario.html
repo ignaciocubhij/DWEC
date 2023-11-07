@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form{
+            background-color: #ccc;
+            width: max-content;
+            padding: 10px;
+        }
+        form input:not([type="button"]){
+            padding: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+        #bcrearID {
+            background: linear-gradient(white, red);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        #bcerrarID {
+            background: linear-gradient(white, blue);
+            color: white;
+            padding: 20px;
+            border: none;
+            border-radius: 10px;
+        }
+        .btns{
+            display: flex;
+            width: 300px;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="formulario1" id="formulario1ID">
+        ancho: <input type="text" name="ancho" id="anchoID" />
+        alto: <input type="text" name="alto" id="altoID" />
+        <br />
+        <div class="btns">
+            <input type="button" name="bcrear" id="bcrearID" value="Crear ventana" />
+            <input type="button" name="bcerrar" id="bcerrarID" value="Cerrar ventana" />
+        </div>
+    </form>
+    <script src="js/formulario.js"></script>
+</body>
+
+</html>
