@@ -57,8 +57,8 @@ document.getElementById('newOpt').addEventListener('click', nueva);
 var select = document.getElementById('miSelect');
 function validarOpcion(opcion){
     for (let i = 0; i < select.options.length; i++) {
-        const element = select.options[i].substring(0, select.value.length - 1);
-        
+        const element = select.options[i].parseInt(substring(0, select.value.length - 1));
+        console.log(element);
         if(opcion.value != element){
             return opcion.value;
         }
@@ -67,7 +67,8 @@ function validarOpcion(opcion){
 
 function validarNumero(opcion){
     for (let i = 0; i < select.options.length; i++) {
-        const element = select.options[i].substring(select.value.length - 1);
+        const element = select.options[i].parseInt(substring(select.value.length - 1));
+        console.log(element);
         
         if(opcion.value != element){
             return select.options[opcion.value];
