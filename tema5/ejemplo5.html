@@ -10,9 +10,24 @@
         <input type="text" id="usuario"/><br>
         <input type="text" id="clave"/><br>
         <input type="text" id="idCodPostal"/><br>
+        <label for="idOpcBor">nombre de la opcion a borrar</label>
+        <input type="text" name="opcBor" id="idOpcBor">
+        <br>
+        <label for="idNumOpcBor">Numero de la opcion a borrar</label>
+        <input type="text" name="numOpcBor" id="idNumOpcBor">
+        <br>
+        <select name="menu" id="miSelect">
+            <option value="option1">opcion1</option>
+            <option value="option2">opcion2</option>
+            <option value="option3">opcion3</option>
+            <option value="option4">opcion4</option>
+        </select>
+        <br>
         <input type="checkbox" name="terms" id="idTerms">
         <label for="terms">Acepto los terminos y condiciones</label><br>
-
+        <input type="button" value="valor" id="btnVal">
+        <input type="button" value="Nueva opcion" id="newOpt">
+        <input type="button" value="Borrar opcion" id="delOpt">
         <input type="submit" value="Enviar" id="submit" disabled>
     </form>
     <script src="js/ejemplo5.js"></script>
