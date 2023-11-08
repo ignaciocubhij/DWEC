@@ -7,6 +7,7 @@ function iniciar() {
             e.preventDefault()
         }
     })
+    document.getElementById('idTerms').addEventListener('click', validaCheck);
 }
 
 function validaForm(evento) {
@@ -22,5 +23,10 @@ function validaForm(evento) {
         window.alert("La clave no es válida")
         return false
     }
+
     this.submit();
+}
+
+function validaCheck() {
+    document.getElementById("submit").disabled=!document.getElementById("submit").disabled;
 }
