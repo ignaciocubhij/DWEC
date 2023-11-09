@@ -37,7 +37,7 @@ class Animal {
 class Perro extends Animal {
     constructor(clase, numPatas, sexo, raza) {
         super(clase, numPatas, sexo);
-        this._raza = raza;
+        this.raza = raza;
     }
 
     getRaza() {

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error{
+            display: none;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <br>
+        <input type="text" id="id_nombre" name="nombre">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+
+        <label for="Apellidos">Apellidos:</label>
+        <br>
+        <input type="text" id="id_apellidos" name="Apellidos">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="edad">Edad:</label>
+        <br>
+        <input type="text" id="id_edad" name="edad">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="direccion">Direccion:</label>
+        <br>
+        <input type="text" id="id_direccion" name="direccion">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="localidad">Localidad: </label>
+        <br>
+        <input type="text" id="id_localidad" name="localidad">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="provincia">Provincia: </label>
+        <br>
+        <input type="text" id="id_provincia" name="provincia">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="codPostal">Codigo postal: </label>
+        <br>
+        <input type="text" id="id_codPostal" name="codPostal">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="telefono">telefono: </label>
+        <br>
+        <input type="text" id="id_telefono" name="telefono">
+        <p class="error">Error en la validacion</p>
+        <br>
+        <br>
+        
+        <label for="estudios">Estudios: </label>
+        <br>
+        <select name="estudios" id="id_estudios">
+            <option value="default">Selecciona una opcion</option>
+            <option value="eso">ESO</option>
+            <option value="bachillerato">bachillerato</option>
+            <option value="fp">F.P.</option>
+        </select>
+        <br>
+        <br>
+
+        <input type="checkbox" name="Terms" id="id_terms">
+        <label for="Terms">Acepto los terminos y condiciones</label>
+        <br>
+        <br>
+
+        <button id="Alta" disabled>Alta</button>
+        <button id="Limpiar">Limpiar</button>
+        <button id="Visualizar">Visualizar</button>
+        <button id="borrar">Borrar</button>
+    </form>
+
+    <div id="res"></div>
+    <script src="js/ejemplo6.js"></script>
+</body>
+
+</html>
