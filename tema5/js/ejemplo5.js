@@ -15,7 +15,7 @@ function validaForm(evento) {
     validaClave();
     validaPostal();
     validaCheck();
-
+    
     this.submit();
 }
 
@@ -55,29 +55,18 @@ function nueva() {
 document.getElementById('newOpt').addEventListener('click', nueva);
 
 var select = document.getElementById('miSelect');
-function validarOpcion(opcion){
+function borrarOpcion() {
+    const nombreOpcion = document.getElementById('idOpcBor').value;
+    const numeroOpcion = document.getElementById('idNumOpcBor').value;
+    
     for (let i = 0; i < select.options.length; i++) {
-        const element = select.options[i].parseInt(substring(0, select.value.length - 1));
-        console.log(element);
-        if(opcion.value != element){
-            return opcion.value;
-        }
-    }
-}
-
-function validarNumero(opcion){
-    for (let i = 0; i < select.options.length; i++) {
-        const element = select.options[i].parseInt(substring(select.value.length - 1));
-        console.log(element);
+        var opcion = select.options[i];
+        var nombre = opcion.value.substring(0, opcion.value.length - 1);
+        var numero = parseInt(opcion.value.substring(opcion.value.length - 1));
         
-        if(opcion.value != element){
-            return select.options[opcion.value];
+        if (nombre === nombreOpcion && numero === parseInt(numeroOpcion)) {
+            select.remove(i);
         }
     }
 }
-
-function borrarOpcion(){
-    select.remove(validarNumero);
-}
-
-document.getElementById('delOpt').addEventListener('click', borrarOpcion());
+    document.getElementById('delOpt').addEventListener('click', borrarOpcion);
