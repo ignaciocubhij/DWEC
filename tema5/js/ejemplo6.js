@@ -75,11 +75,13 @@ class Alumno {
     getEstudios() {
         return this.estudios;
     }
-
+    
     setEstudios(estudios) {
         this.estudios = estudios;
     }
 }
+
+var alumnos = Array();
 
 function finiciar() {
     //expresiones regulares
@@ -112,7 +114,6 @@ function finiciar() {
     })
 
 
-    var alumnos = Array();
     var errores = document.getElementsByTagName('p');
 
     document.getElementById('Alta').addEventListener('click', function (e) {
@@ -129,6 +130,8 @@ function finiciar() {
 
         if(regEx.nombre.test(nombre.value) && regEx.apellidos.test(apellidos.value) && regEx.edad.test(edad.value) && regEx.direccion.test(direccion.value) && regEx.localidad.test(localidad.value) && regEx.provincia.test(provincia.value) && regEx.cod_postal.test(codPostal.value) && regEx.telefono.test(telefono.value) && estudios.selectedIndex != 0){
             alumnos.push(new Alumno(nombre.value, apellidos.value, edad.value, direccion.value, localidad.value, provincia.value, codPostal.value, telefono.value, estudios.value));
+            document.forms[0].reset();
+            document.getElementById('Alta').disabled = true;
         } else {
             for(let key in errores){
                 errores[key].style.display = 'block';
@@ -141,7 +144,15 @@ function finiciar() {
 
     document.getElementById('Visualizar').addEventListener('click', function () {
         //visualizar en el div los datos obtenidos
-        document.getElementById('res').innerHTML = res;
+        var tabla = document.getElementById('resText');
+        var cont = 0;
+        alumnos.forEach(alum => {
+            cont++;
+            tabla.innerHTML += '<tr><th>Alumno '+cont+'</th></tr>';
+            Object.entries(alum).map(([key, value]) => {
+                tabla.innerHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+            })
+        });
     })
     document.getElementById('borrar').addEventListener('click', function () {
         //borra todo el contenido del array
