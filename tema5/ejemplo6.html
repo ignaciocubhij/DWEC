@@ -6,85 +6,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        form{
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 10px auto;
+            padding: 10px;
+            border-radius: 20px;
+            background: linear-gradient(to right, rgba(0, 0,0,.5), purple, purple, rgba(0, 0,0,.5));
+        }
+        form label{
+            color: white;
+            text-align: center;
+        }
+        form input, form select{
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+        form select:focus{
+            border-radius: 10px 10px 0 0;
+        }
+        form button{
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        form button:last-child{
+            border-radius: 0 0 10px 10px;
+        }
         .error{
             display: none;
-            color: red;
+            color: #ccc;
             font-weight: bold;
+        }
+        .chkDiv{
+            display: flex;
+        }
+        .divRes{
+            margin: 10px auto;
+        }
+        #res{
+            height: 300px;
+            width: 300px;
+            border: 1px solid black;
         }
     </style>
 </head>
 
 <body>
     <form>
-        <label for="nombre">Nombre:</label>
-        <br>
+        <label for="id_nombre">Nombre:</label>
         <input type="text" id="id_nombre" name="nombre">
-        <p class="error">Error en la validacion</p>
+        <p class="error">El nombre no cumple con los requisitos</p>
         <br>
         <br>
 
-        <label for="Apellidos">Apellidos:</label>
-        <br>
+        <label for="id_apellidos">Apellidos:</label>
         <input type="text" id="id_apellidos" name="Apellidos">
-        <p class="error">Error en la validacion</p>
+        <p class="error">Los apellidos no cumplen con los requisitos</p>
         <br>
         <br>
         
-        <label for="edad">Edad:</label>
-        <br>
+        <label for="id_edad">Edad:</label>
         <input type="text" id="id_edad" name="edad">
-        <p class="error">Error en la validacion</p>
+        <p class="error">La edad debe estar entre 1 y 110</p>
         <br>
         <br>
         
-        <label for="direccion">Direccion:</label>
-        <br>
+        <label for="id_direccion">Direccion:</label>
         <input type="text" id="id_direccion" name="direccion">
-        <p class="error">Error en la validacion</p>
+        <p class="error">La direccion no cumple con los requisitos</p>
         <br>
         <br>
         
-        <label for="localidad">Localidad: </label>
-        <br>
+        <label for="id_localidad">Localidad: </label>
         <input type="text" id="id_localidad" name="localidad">
-        <p class="error">Error en la validacion</p>
+        <p class="error">La localidad no cumple con los requisitos</p>
         <br>
         <br>
         
-        <label for="provincia">Provincia: </label>
-        <br>
+        <label for="id_provincia">Provincia: </label>
         <input type="text" id="id_provincia" name="provincia">
-        <p class="error">Error en la validacion</p>
+        <p class="error">La provincia no cumple con los requisitos</p>
         <br>
         <br>
         
-        <label for="codPostal">Codigo postal: </label>
-        <br>
+        <label for="id_codPostal">Codigo postal: </label>
         <input type="text" id="id_codPostal" name="codPostal">
-        <p class="error">Error en la validacion</p>
+        <p class="error">El codigo postal debe tener 5 dígitos</p>
         <br>
         <br>
         
-        <label for="telefono">telefono: </label>
-        <br>
-        <input type="text" id="id_telefono" name="telefono">
-        <p class="error">Error en la validacion</p>
+        <label for="id_telefono">telefono: </label>
+        <input type="text" id="id_telefono" name="telefono" placeholder="(+XXX)XXX.XXX.XXX">
+        <p class="error">El telefono debe tener formato (+XXX)XXX.XXX.XXX</p>
         <br>
         <br>
         
-        <label for="estudios">Estudios: </label>
-        <br>
+        <label for="id_estudios">Estudios: </label>
         <select name="estudios" id="id_estudios">
             <option value="default">Selecciona una opcion</option>
             <option value="eso">ESO</option>
             <option value="bachillerato">bachillerato</option>
             <option value="fp">F.P.</option>
         </select>
+        <p class="error">Selecciona una opcion válida</p>
         <br>
         <br>
 
-        <input type="checkbox" name="Terms" id="id_terms">
-        <label for="Terms">Acepto los terminos y condiciones</label>
+        <div class="chkDiv">
+            <input type="checkbox" name="Terms" id="id_terms">
+            <label for="id_terms">Acepto los terminos y condiciones</label>
+        </div>
         <br>
         <br>
 
@@ -94,7 +139,10 @@
         <button id="borrar">Borrar</button>
     </form>
 
-    <div id="res"></div>
+    <div class="divRes">
+        <p>Resultado</p>
+        <div id="res"></div>
+    </div>
     <script src="js/ejemplo6.js"></script>
 </body>
 

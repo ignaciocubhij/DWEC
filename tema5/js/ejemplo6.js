@@ -86,7 +86,7 @@ function finiciar() {
     const regEx = {
         nombre: /(^[\wñÑ]+$|^[\wñÑ]+\s[\wñÑ]+)$/,
         apellidos: /(^[\wñÑ]+$|^[\wñÑ]+\s[\wñÑ]+)$/,
-        edad: /^(\?\d)|(10\d)|(110)$/,
+        edad: /^(?:[1-9][0-9]?|1[01][0-9]|110)$/,
         direccion: /\w+[\/\.][\s\w+]+/,
         localidad: /\w+/,
         provincia: /^(\w+|\w+\s\w+)$/,
@@ -113,21 +113,32 @@ function finiciar() {
 
 
     var alumnos = Array();
-    document.getElementById('Alta').addEventListener('click', function () {
-        if(nombre.value.match(regEx.nombre) && apellidos.value.match(regEx.apellidos) && edad.value.match(regEx.edad) && direccion.value.match(regEx.direccion) && localidad.value.match(regEx.localidad) && provincia.value.match(regEx.provincia) && codPostal.value.match(regEx.cod_postal) && telefono.value.match(regEx.telefono)){
-            alert('hola');
-            /*         alumnos.push(new Alumno(nombre.value, apellidos.value, edad.value, direccion.value, localidad.value, provincia.value, codPostal.value, telefono.value, estudios.value)); */
+    var errores = document.getElementsByTagName('p');
+
+    document.getElementById('Alta').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        console.log(regEx.nombre.test(nombre.value));
+        console.log(regEx.apellidos.test(apellidos.value));
+        console.log(regEx.edad.test(edad.value));
+        console.log(regEx.localidad.test(localidad.value));
+        console.log(regEx.direccion.test(direccion.value));
+        console.log(regEx.cod_postal.test(codPostal.value));
+        console.log(regEx.telefono.test(telefono.value));
+        console.log(regEx.provincia.test(provincia.value));
+
+        if(regEx.nombre.test(nombre.value) && regEx.apellidos.test(apellidos.value) && regEx.edad.test(edad.value) && regEx.direccion.test(direccion.value) && regEx.localidad.test(localidad.value) && regEx.provincia.test(provincia.value) && regEx.cod_postal.test(codPostal.value) && regEx.telefono.test(telefono.value) && estudios.selectedIndex != 0){
+            alumnos.push(new Alumno(nombre.value, apellidos.value, edad.value, direccion.value, localidad.value, provincia.value, codPostal.value, telefono.value, estudios.value));
+        } else {
+            for(let key in errores){
+                errores[key].style.display = 'block';
+            }
         }
     })
     document.getElementById('Limpiar').addEventListener('click', function () {
         document.forms[0].reset();
-        var errores = document.getElementsByClassName('error');
-        var array = Array.from(errores);
-
-        /**
-         * ! la variable array es un objeto
-         */
     })
+
     document.getElementById('Visualizar').addEventListener('click', function () {
         //visualizar en el div los datos obtenidos
         document.getElementById('res').innerHTML = res;
