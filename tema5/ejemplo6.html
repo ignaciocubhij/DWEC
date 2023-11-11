@@ -88,9 +88,12 @@
         }
         #res{
             width: 300px;
-            height: 300px;
-            border: 1px solid black;
+            height: max-content;
             margin: 0 auto;
+        }
+        #res table{
+            height: max-content;
+            width: 100%;
         }
     </style>
 </head>
@@ -193,7 +196,7 @@
 
     <div id="res">
         <p>resultado</p>
-        <table id="resText"></table>
+        <table id="resText" border="1"></table>
     </div>
     <script src="js/ejemplo6.js"></script>
 </body>
