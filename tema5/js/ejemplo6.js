@@ -3,14 +3,14 @@ document.addEventListener('DOMContentLoaded', finiciar);
 
 class Alumno {
 
-    constructor(nombre, apellidos, edad, direccion, localidad, provincia, cod_postal, telefono, estudios) {
+    constructor(nombre, apellidos, edad, direccion, localidad, provincia, codPostal, telefono, estudios) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.edad = edad;
         this.direccion = direccion;
         this.localidad = localidad;
         this.provincia = provincia;
-        this.cod_postal = cod_postal;
+        this.codPostal = codPostal;
         this.telefono = telefono;
         this.estudios = estudios;
     }
@@ -59,11 +59,11 @@ class Alumno {
         this.provincia = provincia;
     }
     getCodigo() {
-        return this.cod_postal;
+        return this.codPostal;
     }
 
     setCodigo(codigo) {
-        this.cod_postal = codigo;
+        this.codPostal = codigo;
     }
     getTelefono() {
         return this.telefono;
@@ -92,7 +92,7 @@ function finiciar() {
         direccion: /\w+[\/\.][\s\w+]+/,
         localidad: /\w+/,
         provincia: /^(\w+|\w+\s\w+)$/,
-        cod_postal: /\d{5}/,
+        codPostal: /\d{5}/,
         telefono: /\(\+\d{3}\)\d{3}\.\d{3}\.\d{3}/
     }
 
@@ -116,47 +116,46 @@ function finiciar() {
 
     var errores = document.getElementsByTagName('p');
 
-    document.getElementById('Alta').addEventListener('click', function (e) {
-        e.preventDefault();
-
-        /* console.log(regEx.nombre.test(nombre.value));
-        console.log(regEx.apellidos.test(apellidos.value));
-        console.log(regEx.edad.test(edad.value));
-        console.log(regEx.localidad.test(localidad.value));
-        console.log(regEx.direccion.test(direccion.value));
-        console.log(regEx.cod_postal.test(codPostal.value));
-        console.log(regEx.telefono.test(telefono.value));
-        console.log(regEx.provincia.test(provincia.value)); */
-
-        if(regEx.nombre.test(nombre.value) && regEx.apellidos.test(apellidos.value) && regEx.edad.test(edad.value) && regEx.direccion.test(direccion.value) && regEx.localidad.test(localidad.value) && regEx.provincia.test(provincia.value) && regEx.cod_postal.test(codPostal.value) && regEx.telefono.test(telefono.value) && estudios.selectedIndex != 0){
-            alumnos.push(new Alumno(nombre.value, apellidos.value, edad.value, direccion.value, localidad.value, provincia.value, codPostal.value, telefono.value, estudios.value));
-            console.log(alumnos);
-            document.forms[0].reset();
-            document.getElementById('Alta').disabled = true;
-        } else {
-            for(let key in errores){
-                errores[key].style.display = 'block';
-            }
-        }
-    })
     document.getElementById('Limpiar').addEventListener('click', function () {
         e.preventDefault();
         document.forms[0].reset();
     })
 
-    document.getElementById('Visualizar').addEventListener('click', function (e) {
-        //visualizar en el div los datos obtenidos
+    document.getElementById('Alta').addEventListener('click', function (e) {
         e.preventDefault();
-        var tabla = document.getElementById('resText');
+    
+        if (regEx.nombre.test(nombre.value) && regEx.apellidos.test(apellidos.value) && regEx.edad.test(edad.value) && regEx.direccion.test(direccion.value) && regEx.localidad.test(localidad.value) && regEx.provincia.test(provincia.value) && regEx.codPostal.test(codPostal.value) && regEx.telefono.test(telefono.value) && estudios.selectedIndex != 0) {
+            alumnos.push(new Alumno(nombre.value, apellidos.value, edad.value, direccion.value, localidad.value, provincia.value, codPostal.value, telefono.value, estudios.value));
+            console.log(alumnos);
+            document.getElementById('Alta').disabled = true;
+            document.forms[0].reset();
+        } else {
+            if (!regEx.nombre.test(nombre.value)) errores[0].style.display = 'block';
+            if (!regEx.apellidos.test(apellidos.value)) errores[1].style.display = 'block';
+            if (!regEx.edad.test(edad.value)) errores[2].style.display = 'block';
+            if (!regEx.direccion.test(direccion.value)) errores[3].style.display = 'block';
+            if (!regEx.localidad.test(localidad.value)) errores[4].style.display = 'block';
+            if (!regEx.provincia.test(provincia.value)) errores[5].style.display = 'block';
+            if (!regEx.codPostal.test(codPostal.value)) errores[6].style.display = 'block';
+            if (!regEx.telefono.test(telefono.value)) errores[7].style.display = 'block';
+            if (estudios.selectedIndex === 0) errores[errores.length - 1].style.display = 'block';
+        }
+    });
+    
+    document.getElementById('Visualizar').addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.getElementById('resText').innerHTML = '<tr><th colspan="2">Alumnos</th></tr>';
+    
         var cont = 0;
-        alumnos.forEach(alum => {
+        alumnos.forEach((alum, index) => {
             cont++;
-            tabla.innerHTML += '<tr><th colspan="2">Alumno '+cont+'</th></tr>';
-            Object.entries(alum).map(([key, value]) => {
-                tabla.innerHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
-            })
+            document.getElementById('resText').innerHTML += '<tr><th colspan="2">Alumno ' + cont + '</th></tr>';
+            Object.entries(alum).forEach(([key, value]) => {
+                document.getElementById('resText').innerHTML += `<tr><td>${key}</td><td>${value}</td></tr>`;
+            });
         });
-    })
+    });
     document.getElementById('borrar').addEventListener('click', function () {
         e.preventDefault();
         //borra todo el contenido del array
