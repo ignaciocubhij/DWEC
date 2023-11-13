@@ -114,7 +114,7 @@ function finiciar() {
     })
 
 
-    var errores = document.getElementsByTagName('p');
+    var errores = document.getElementsByClassName('error');
 
     document.getElementById('Limpiar').addEventListener('click', function () {
         e.preventDefault();
@@ -129,6 +129,15 @@ function finiciar() {
             console.log(alumnos);
             document.getElementById('Alta').disabled = true;
             document.forms[0].reset();
+            if (!regEx.nombre.test(nombre.value)) errores[0].style.display = 'none';
+            if (!regEx.apellidos.test(apellidos.value)) errores[1].style.display = 'none';
+            if (!regEx.edad.test(edad.value)) errores[2].style.display = 'none';
+            if (!regEx.direccion.test(direccion.value)) errores[3].style.display = 'none';
+            if (!regEx.localidad.test(localidad.value)) errores[4].style.display = 'none';
+            if (!regEx.provincia.test(provincia.value)) errores[5].style.display = 'none';
+            if (!regEx.codPostal.test(codPostal.value)) errores[6].style.display = 'none';
+            if (!regEx.telefono.test(telefono.value)) errores[7].style.display = 'none';
+            if (estudios.selectedIndex === 0) errores[errores.length - 1].style.display = 'none';
         } else {
             if (!regEx.nombre.test(nombre.value)) errores[0].style.display = 'block';
             if (!regEx.apellidos.test(apellidos.value)) errores[1].style.display = 'block';
