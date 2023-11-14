@@ -11,48 +11,53 @@ function iniciar() {
         })
     };
 
-    var numeros;
+    let numeros, valor;
     var operacion;
-    document.getElementsByClassName('exec')[0].addEventListener('click', (e) => {
-        e.preventDefault();
 
+    function calculo(){
         //quitar los operadores del resultado y asignarlo a la variable
-        numeros = resultado.value.split(/[\+\-\*\/\%\^]/);
-
-        /* console.log(numeros); */
+        valor = resultado.value;
+        numeros = valor.split(/[\+\-\*\/\^]|MOD/);
 
         //desconstruimos la variable
         var [num1, num2] = numeros;
-        /* console.log("nuemros sin parsear", num1, num2); */
-
-        //parseamos los numeros
-        parseInt(num1);
-        parseInt(num2);
-        /* console.log(num1, num2); */
 
         //dependiendo del contenido del resultado, se hace una cosa u otra
-        if (resultado.innerText.includes('*')) {
-            operacion = num1 * num2;
-            console.log(operacion);
-        } else if (resultado.innerText.includes('+')) {
-            operacion = num1 + num2;
-            console.log(operacion);
-        } else if (resultado.innerText.includes('-')) {
-            operacion = num1 - num2;
-            console.log(operacion);
-        } else if (resultado.innerText.includes('/')) {
-            operacion = num1 / num2;
-            console.log(operacion);
-        } else if (resultado.innerText.includes('^')) {
-            operacion = Math.pow(num1, num2);
-            console.log(operacion);
-        } else if (resultado.innerText.includes('%')) {
-            operacion = num1 % num2;
-            console.log(operacion);
-        }
+        switch (true) {
+            case valor.includes('*'):
+                operacion = parseInt(num1) * parseInt(num2);
+                break;
+            case valor.includes('+'):
+                operacion = parseInt(num1) + parseInt(num2);
+                break;
+            case valor.includes('-'):
+                operacion = parseInt(num1) - parseInt(num2);
+                break;
+            case valor.includes('/'):
+                operacion = parseInt(num1) / parseInt(num2);
+                break;
+            case valor.includes('^'):
+                operacion = Math.pow(parseInt(num1), parseInt(num2));
+                break;
+            case valor.includes('MOD'):
+                operacion = parseInt(num1) % parseInt(num2);
+                break;
+            default:
+                break;
+        }        
 
         //reemplazamos el valor del resultado
-        document.getElementById('idResultado').value = operacion;
+        if (isNaN(operacion) || !isFinite(operacion)) {
+            document.getElementById('idResultado').value = 'ERROR';
+        } else {
+            document.getElementById('idResultado').value = operacion;
+        }
+    }
+
+    document.getElementsByClassName('exec')[0].addEventListener('click', (e) => {
+        e.preventDefault();
+
+        calculo();   
     })
 
     document.getElementsByClassName('del')[0].addEventListener('click', (e) => {
