@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="">
+        <div>
+            <h1>Datos personales</h1>
+            <br>
+            <fieldset>
+                <label for="id_edad">Edad:</label>
+                <input type="text" id="id_edad" name="edad" />
+            </fieldset>
+            <br>
+            <fieldset id="sexo">
+                <legend>Sexo:</legend>
+                <input type="radio" name="sexo" value="Hombre">
+                <label for="sexo">Hombre</label>
+                <input type="radio" name="sexo" value="Mujer">
+                <label for="sexo">Mujer</label>
+            </fieldset>
+            <br>
+            <fieldset id="estudios">
+                <legend>Estudias:</legend>
+                <input type="radio" name="estudiosRad" value="Si">
+                <label for="estudiosRad">Si</label>
+                <input type="radio" name="estudiosRad" value="No">
+                <label for="estudiosRad">No</label>
+            </fieldset>
+            <br>
+            <fieldset id="selEstudios">
+                <legend>Tipo de estudios:</legend>
+                <select name="estudiosSel">
+                    <option value="default">--Elige una opcion--</option>
+                    <option value="primaria">Primaria</option>
+                    <option value="secundaria">Secundaria</option>
+                    <option value="Bachiller">Bachillerato</option>
+                    <option value="CFGM">CFGM</option>
+                    <option value="CFGS">CFGS</option>
+                    <option value="diplomatura">diplomatura</option>
+                    <option value="licenciatura">licenciatura</option>
+                    <option value="doctorado">doctorado</option>
+                </select>
+            </fieldset>
+        </div>
+        <div id="equiInf">
+            <h1>Equipo informatico</h1>
+
+            <br>
+            <fieldset id="ordenador">
+                <legend>Ordenador en casa:</legend>
+                <input type="radio" name="ordenadorRad" value="Si">
+                <label for="ordenadorRad">Si</label>
+                <input type="radio" name="ordenadorRad" value="No">
+                <label for="ordenadorRad">No</label>
+                <br>
+                <br>
+                <select id="tipoOrdSel">
+                    <option value="default">--Elige una opcion--</option>
+                    <option value="portatil">portatil</option>
+                    <option value="convertible">convertible</option>
+                    <option value="sobremesa">sobremesa</option>
+                </select>
+                <br>
+                <br>
+                <select id="antOrdSel">
+                    <option value="default">--Elige una opcion--</option>
+                    <option value="menor1"> menor1 </option>
+                    <option value="1-2">1-2</option>
+                    <option value="2-4">2-4</option>
+                    <option value=">4">>4</option>
+                </select>
+                <br></br>
+            </fieldset>
+        </div>
+    </form>
+
+    <script src="js/validarForm.js"></script>
+</body>
+
+</html>
