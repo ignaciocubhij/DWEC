@@ -1,49 +1,59 @@
 document.addEventListener('DOMContentLoaded', finiciar);
 
-function finiciar(){
+function finiciar() {
 
+    var datos = [];
     var reg = {
-        edad: /^[0-9][0-9]?$/
+        edad: /^[0-9][0-9]?$/,
+        usoSemana: /^\d$/
     };
 
-    var edad = document.getElementById('id_edad');
-    edad.addEventListener('keyup', ()=>{
-        if (!reg.edad.test(edad.value)) {
-            edad.style.border = '3px solid red';
+    var edad = {
+        valor: document.getElementById('id_edad'),
+        validar: false
+    };
+    
+    edad.valor.addEventListener('keyup', () => {
+        if (!reg.edad.test(edad.valor.value) || isNaN(edad.valor.value)) {
+            edad.valor.style.border = '3px solid red';
+            edad.validar = false;
         } else {
-            edad.style.border = 'none';
+            edad.valor.style.border = 'none';
+            edad.validar = true;
         }
+        console.log(edad.valor);
+        console.log(edad.validar);
     })
 
-    document.getElementById('id_estudiosRad1').addEventListener('click', ()=>{
-        if (document.getElementById('id_estudiosRad1').checked) {
+    document.getElementById('id_estudiosRad1').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('selEstudios').style.display = 'block';
         }
     })
-    document.getElementById('id_estudiosRad2').addEventListener('click', ()=>{
-        if (document.getElementById('id_estudiosRad2').checked) {
+    document.getElementById('id_estudiosRad2').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('selEstudios').style.display = 'none';
         }
     })
 
-    document.getElementById('mostrarEquipo').addEventListener('click', ()=>{
-        if (document.getElementById('mostrarEquipo').checked) {
+    document.getElementById('mostrarEquipo').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('equiInf').style.display = 'block';
         }
     })
-    document.getElementById('ocultarEquipo').addEventListener('click', ()=>{
-        if (document.getElementById('ocultarEquipo').checked) {
+    document.getElementById('ocultarEquipo').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('equiInf').style.display = 'none';
         }
     })
 
-    document.getElementById('mostrarMarOrdRad').addEventListener('click', ()=>{
-        if (document.getElementById('mostrarMarOrdRad').checked) {
+    document.getElementById('mostrarMarOrdRad').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('nomMarca').style.display = 'block';
         }
     })
-    document.getElementById('ocultarMarOrdRad').addEventListener('click', ()=>{
-        if (document.getElementById('ocultarMarOrdRad').checked) {
+    document.getElementById('ocultarMarOrdRad').addEventListener('click', (e) => {
+        if (e.target.checked) {
             document.getElementById('nomMarca').style.display = 'none';
         }
     })
@@ -53,7 +63,7 @@ function finiciar(){
     var modAMD = document.getElementById('modAMD');
 
     //despliegue de modelos de cpu
-    CPUs.addEventListener('click', ()=>{
+    CPUs.addEventListener('click', () => {
         if (CPUs.options[CPUs.selectedIndex].value == 'Intel') {
             modInt.style.display = 'block';
             velCi3.style.display = 'none';
@@ -82,7 +92,7 @@ function finiciar(){
     var velCi5 = document.getElementById('velCi5');
     var velCi7 = document.getElementById('velCi7');
 
-    modIntSel.addEventListener('click', ()=>{
+    modIntSel.addEventListener('click', () => {
         if (modIntSel.options[modIntSel.selectedIndex].value == 'corei3') {
             velCi3.style.display = 'block';
         } else {
@@ -104,7 +114,7 @@ function finiciar(){
     var velRy5 = document.getElementById('velRy5');
     var velRy7 = document.getElementById('velRy7');
 
-    modAMDSel.addEventListener('click', ()=>{
+    modAMDSel.addEventListener('click', () => {
         if (modAMDSel.options[modAMDSel.selectedIndex].value == 'ryzen5') {
             velRy5.style.display = 'block';
         } else {
@@ -118,10 +128,90 @@ function finiciar(){
         }
     })
 
-    //validar selects
-    document.querySelector('#selEstudios select').addEventListener('click', ()=>{
-        if(document.querySelector('#selEstudios select').selectedIndex != 0){
-            this.style.border = '1px solid red';
+    //horas de uso semanales
+    document.getElementById('id_dSemUso').addEventListener('keyup', (e) => {
+        if (!reg.usoSemana.test(e.target.value) || e.target.value > 7 || isNaN(e.target.value)) {
+            e.target.style.border = '3px solid red';
+        } else {
+            e.target.style.border = 'none';
         }
+    })
+
+    //otras actividades
+    document.getElementById('id_otras').addEventListener('click', (e) => {
+        if (e.target.checked) {
+            e.target.style.display = 'block';
+        } else {
+            e.target.style.display = 'none';
+        }
+    })
+
+    //validar selects
+    var selects = document.getElementsByTagName('select');
+
+    for (let i = 0; i < selects.length; i++) {
+        selects[i].addEventListener('click', (e) => {
+            if (selects[i].style.display == 'block') {
+                if (e.target.selectedIndex != 0) {
+                    e.target.style.border = '1px solid red';
+                    validar = false;
+                }
+                console.log(e.target);
+            }
+        })
+    }
+
+    /* document.querySelectorAll('input:checked, [display="block"]').forEach(item => {
+        console.log(item);
+    }) */
+
+    /* console.log(edad.validar && sexHom.validar || sexMuj.validar); */
+
+    document.getElementById('enviaForm').addEventListener('click', (e) => {
+        e.preventDefault();
+
+        var sexHom = {
+            valor: document.getElementById('sexHom'),
+            validar: false
+        }
+        
+        var sexMuj = {
+            valor: document.getElementById('sexMuj'),
+            validar: false
+        }
+
+        if (!sexHom.valor.checked || !sexMuj.valor.checked) {
+            sexHom.validar = false;
+            sexMuj.validar = false;
+            document.getElementById('sexo').innerHTML += '<p class="error">Pon un valor</p>'
+        } else {
+            sex.sexHom.validar = true;
+            sex.sexMuj.validar = true;
+            if(sexHom.validar){
+                datos.push(sexHom.valor.value);
+            } else if(sexMuj.validar){
+                datos.push(sexMuj.valor.value);
+            }
+        }
+
+        /**
+         * *como meter los datos en el array
+         */
+
+        datos.push(edad.value);
+        var ventana = window.open('');
+        ventana.document.write('<table>');
+        var cont = 0;
+        while (cont < datos.length) {
+            ventana.document.write('<tr>' + datos[cont] + '</tr>');
+            cont++;
+        }
+        ventana.document.write('</table>');
+    })
+
+    document.getElementById('limpiaForm').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.forms[0].reset();
+        document.getElementById('equiInf').style.display = 'none';
     })
 }

@@ -15,7 +15,8 @@
         #velCi5,
         #velCi7,
         #velRy5,
-        #velRy7 {
+        #velRy7,
+        #otrasText {
             display: none;
         }
 
@@ -26,6 +27,11 @@
         form fieldset {
             margin: 10px;
             background-color: lightgrey;
+        }
+
+        .error{
+            color: red;
+            font-weight: bolder;
         }
     </style>
 </head>
@@ -43,9 +49,9 @@
             <br>
             <div id="sexo">
                 <label>Sexo:</label><br>
-                <input type="radio" name="sexo" value="Hombre">
+                <input type="radio" name="sexo" value="Hombre" id="sexHom">
                 <label for="sexo">Hombre</label>
-                <input type="radio" name="sexo" value="Mujer">
+                <input type="radio" name="sexo" value="Mujer" id="sexMuj">
                 <label for="sexo">Mujer</label>
             </div>
             <br>
@@ -123,7 +129,7 @@
                 <br>
 
                 <!--CPU-->
-                <label for="selNomMar">Selecciona una marca</label>
+                <label for="selNomMar">Selecciona una CPU</label>
                 <br>
                 <select name="marcasCPU" id="CPU1">
                     <option value="default">--Elige una opcion--</option>
@@ -218,8 +224,120 @@
                     </select>
                 </div>
                 <br>
+
+                <!--Cantidad de memoria-->
+                <div id="RAM">
+                    <label for="">Memoria RAM</label>
+                    <br>
+                    <select name="selRAM" id="">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="<4">
+                            < 4 GB</option>
+                        <option value="4-8">4GB - 8GB</option>
+                        <option value=">=8">>=8GB</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--disco duro-->
+                <div id="discoDuro">
+                    <label for="">Disco duro</label>
+                    <br>
+                    <select name="selHDD">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="<250">
+                            < 250 GB</option>
+                        <option value="250-500">250-500 GB</option>
+                        <option value=">=500">>=500 GB</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Tamaño de pantalla-->
+                <div id="pulgadas">
+                    <label for="">Pantalla</label>
+                    <br>
+                    <select name="selPulgadas" id="">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="13">13''</option>
+                        <option value="15">15''</option>
+                        <option value="17">17''</option>
+                        <option value="19">19''</option>
+                        <option value=">=22">>= 22''</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--conexion a internet-->
+                <div id="internet">
+                    <label for="">Conexion a internet</label>
+                    <br>
+                    <select name="" id="">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="cable">cable</option>
+                        <option value="fibra">fibra</option>
+                        <option value="4g">4G</option>
+                        <option value="otros">otros</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--propio o compartido-->
+                <div id="propComp">
+                    <label for="">Propio</label>
+                    <input type="radio">
+                    <label for="">Compartido</label>
+                    <input type="radio">
+                </div>
+                <br>
+
+                <!--dias semanales de uso-->
+                <div id="dSemUso">
+                    <label for="">dias semanales de uso</label>
+                    <br>
+                    <input type="text" id="id_dSemUso">
+                </div>
+                <br>
+
+                <!--horas diarias de uso-->
+                <div id="hDiaUso">
+                    <label for="">Horas diarias de uso</label>
+                    <br>
+                    <select name="selHSemUso" id="id_selHSemUso">
+                        <option value="<1">< 1</option>
+                        <option value="1-2">1-2</option>
+                        <option value="2-3">2-3</option>
+                        <option value=">3">>3</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--actividades realizadas-->
+                <div id="actRea">
+                    <label for="">Actividades realizadas</label>
+                    <br>
+                    <input type="checkbox" name="busqueda"/>
+                    <label for="">busqueda de informacion</label>
+                    <br>
+                    <input type="checkbox" name="ofimatica"/>
+                    <label for="">ofimatica</label>
+                    <br>
+                    <input type="checkbox" name="programacion"/>
+                    <label for="">programacion</label>
+                    <br>
+                    <input type="checkbox" name="juegos"/>
+                    <label for="">juegos</label>
+                    <br>
+                    <input type="checkbox" name="otras" id="id_otras"/>
+                    <label for="">otras</label>
+                    <br>
+                    <textarea name="textOtras" id="otrasText" cols="30" rows="10"></textarea>
+                </div>
         </fieldset>
         </div>
+
+        <button type="submit" id="enviaForm" disabled>Enviar</button>
+        <button type="reset" id="LimpiaForm">Limpiar</button>
     </form>
 
     <script src="js/validarForm.js"></script>
