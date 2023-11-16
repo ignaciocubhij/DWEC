@@ -5,37 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #selEstudios,
+        #equiInf,
+        #nomMarca,
+        #modInt,
+        #modAMD,
+        #velCi3,
+        #velCi5,
+        #velCi7,
+        #velRy5,
+        #velRy7 {
+            display: none;
+        }
+
+        form * {
+            outline: none;
+        }
+
+        form fieldset {
+            margin: 10px;
+            background-color: lightgrey;
+        }
+    </style>
 </head>
 
 <body>
 
     <form action="">
-        <div>
-            <h1>Datos personales</h1>
+        <fieldset>
+            <legend>Datos personales</legend>
             <br>
-            <fieldset>
-                <label for="id_edad">Edad:</label>
+            <div>
+                <label for="id_edad">Edad:</label><br>
                 <input type="text" id="id_edad" name="edad" />
-            </fieldset>
+            </div>
             <br>
-            <fieldset id="sexo">
-                <legend>Sexo:</legend>
+            <div id="sexo">
+                <label>Sexo:</label><br>
                 <input type="radio" name="sexo" value="Hombre">
                 <label for="sexo">Hombre</label>
                 <input type="radio" name="sexo" value="Mujer">
                 <label for="sexo">Mujer</label>
-            </fieldset>
+            </div>
             <br>
-            <fieldset id="estudios">
-                <legend>Estudias:</legend>
-                <input type="radio" name="estudiosRad" value="Si">
+            <div id="estudios">
+                <label>Estudias:</label><br>
+                <input type="radio" name="estudiosRad" id="id_estudiosRad1" value="Si">
                 <label for="estudiosRad">Si</label>
-                <input type="radio" name="estudiosRad" value="No">
+                <input type="radio" name="estudiosRad" id="id_estudiosRad2" value="No">
                 <label for="estudiosRad">No</label>
-            </fieldset>
+            </div>
             <br>
-            <fieldset id="selEstudios">
-                <legend>Tipo de estudios:</legend>
+            <div id="selEstudios">
+                <label>Tipo de estudios:</label><br>
                 <select name="estudiosSel">
                     <option value="default">--Elige una opcion--</option>
                     <option value="primaria">Primaria</option>
@@ -47,20 +70,21 @@
                     <option value="licenciatura">licenciatura</option>
                     <option value="doctorado">doctorado</option>
                 </select>
-            </fieldset>
-        </div>
-        <div id="equiInf">
-            <h1>Equipo informatico</h1>
+            </div>
+            <br>
+            <label>Ordenador en casa:</label><br>
+            <input type="radio" name="ordenadorRad" id="mostrarEquipo" value="Si">
+            <label for="ordenadorRad">Si</label>
+            <input type="radio" name="ordenadorRad" id="ocultarEquipo" value="No">
+            <label for="ordenadorRad">No</label>
+        </fieldset>
+        <fieldset id="equiInf">
+            <legend>Equipo informatico</legend>
 
             <br>
-            <fieldset id="ordenador">
-                <legend>Ordenador en casa:</legend>
-                <input type="radio" name="ordenadorRad" value="Si">
-                <label for="ordenadorRad">Si</label>
-                <input type="radio" name="ordenadorRad" value="No">
-                <label for="ordenadorRad">No</label>
-                <br>
-                <br>
+            <div id="ordenador">
+                <!--Tipo de ordenador-->
+                <label for="tipoOrdSel">Tipo de ordenador</label>
                 <select id="tipoOrdSel">
                     <option value="default">--Elige una opcion--</option>
                     <option value="portatil">portatil</option>
@@ -69,15 +93,132 @@
                 </select>
                 <br>
                 <br>
+
+                <!--Antigüedad ordenador-->
+                <label for="antOrdSel">Antigüedad de ordenador</label>
                 <select id="antOrdSel">
                     <option value="default">--Elige una opcion--</option>
-                    <option value="menor1"> menor1 </option>
+                    <option value="< 1">
+                        < 1 </option>
                     <option value="1-2">1-2</option>
                     <option value="2-4">2-4</option>
                     <option value=">4">>4</option>
                 </select>
                 <br></br>
-            </fieldset>
+
+                <!--Ordenador de marca?-->
+                <label for="marcaOrd">Ordenador de marca?</label>
+                <input type="radio" name="marcaOrdenadorRad" id="mostrarMarOrdRad" value="Si">
+                <label for="ordenadorRad">Si</label>
+                <input type="radio" name="marcaOrdenadorRad" id="ocultarMarOrdRad" value="No">
+                <label for="ordenadorRad">No</label>
+                <br><br>
+
+                <!--Marcas de CPU-->
+                <div id="nomMarca">
+                    <label for="nomMar">Nombre de marca</label>
+                    <br>
+                    <input type="text" name="marca" id="id_marca" />
+                </div>
+                <br>
+
+                <!--CPU-->
+                <label for="selNomMar">Selecciona una marca</label>
+                <br>
+                <select name="marcasCPU" id="CPU1">
+                    <option value="default">--Elige una opcion--</option>
+                    <option value="Intel">Intel</option>
+                    <option value="AMD">AMD</option>
+                </select>
+                <br><br>
+
+                <!--Modelos de intel-->
+                <div id="modInt">
+                    <label for="modInt">Modelo:</label>
+                    <br>
+                    <select name="cpuInt">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="corei3">Core i3</option>
+                        <option value="corei5">Core i5</option>
+                        <option value="corei7">Core i7</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Modelos de AMD-->
+                <div id="modAMD">
+                    <label for="modAMD">Modelo:</label>
+                    <br>
+                    <select name="cpuAMD">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="ryzen5">Ryzen 5 3600</option>
+                        <option value="ryzen7">Ryzen 7 3800x</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Velocidad Core i3-->
+                <div id="velCi3">
+                    <label for="velCi3">Velocidad:</label>
+                    <br>
+                    <select name="selVelCi3">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="2.1">2.1 GHz</option>
+                        <option value="2.3">2.3 GHz</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Velocidad Core i5-->
+                <div id="velCi5">
+                    <label for="velCi5">Velocidad:</label>
+                    <br>
+                    <select name="selVelCi5">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="2.5">2.5 GHz</option>
+                        <option value="3.0">3.0 GHz</option>
+                        <option value="3.6">3.6 GHz</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Velocidad Core i7-->
+                <div id="velCi7">
+                    <label for="velCi7">Velocidad:</label>
+                    <br>
+                    <select name="selVelCi7">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="3.0">3.0 GHz</option>
+                        <option value="3.6">3.6 GHz</option>
+                        <option value="4.3">4.3 GHz</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Velocidad ryzen5-->
+                <div id="velRy5">
+                    <label for="velRy5">Velocidad:</label>
+                    <br>
+                    <select name="selVelRy5">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="4.2">4.2 GHz</option>
+                        <option value="4.4">4.4 GHz</option>
+                    </select>
+                </div>
+                <br>
+
+                <!--Velocidad ryzen7-->
+                <div id="velRy7">
+                    <label for="velRy7">Velocidad:</label>
+                    <br>
+                    <select name="selVelRy7">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="3.9">3.9 GHz</option>
+                        <option value="4.5">4.5 GHz</option>
+                    </select>
+                </div>
+                <br>
+        </fieldset>
         </div>
     </form>
 
