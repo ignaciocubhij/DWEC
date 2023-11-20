@@ -20,18 +20,55 @@
             display: none;
         }
 
+        form {
+            margin: 0 auto;
+            width: 50%;
+            background-color: #383636;
+            padding: 20px;
+            box-shadow: 3px 3px 7px 0;
+            border-radius: 30px;
+        }
+        
         form * {
             outline: none;
         }
-
+        
         form fieldset {
+            border-radius: 10px;
             margin: 10px;
-            background-color: lightgrey;
+            padding: 0 0 20px 20px;
+            color: white;
+            border-color: white;
         }
 
         .error{
             color: red;
             font-weight: bolder;
+        }
+        form fieldset legend, form .btns{
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        form input, form select{
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        #id_estudiosSel{
+            margin-bottom: 20px;;
+        }
+
+        form .btns{
+            display: flex;
+            gap: 10px;
+        }
+
+        form .btns button{
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
         }
     </style>
 </head>
@@ -65,7 +102,7 @@
             <br>
             <div id="selEstudios">
                 <label>Tipo de estudios:</label><br>
-                <select name="estudiosSel">
+                <select name="estudiosSel" id="id_estudiosSel">
                     <option value="default">--Elige una opcion--</option>
                     <option value="primaria">Primaria</option>
                     <option value="secundaria">Secundaria</option>
@@ -77,12 +114,13 @@
                     <option value="doctorado">doctorado</option>
                 </select>
             </div>
-            <br>
-            <label>Ordenador en casa:</label><br>
-            <input type="radio" name="ordenadorRad" id="mostrarEquipo" value="Si">
-            <label for="ordenadorRad">Si</label>
-            <input type="radio" name="ordenadorRad" id="ocultarEquipo" value="No">
-            <label for="ordenadorRad">No</label>
+            <div id="ordenador">
+                <label>Ordenador en casa:</label><br>
+                <input type="radio" name="ordenadorRad" id="mostrarEquipo" value="Si">
+                <label for="ordenadorRad">Si</label>
+                <input type="radio" name="ordenadorRad" id="ocultarEquipo" value="No">
+                <label for="ordenadorRad">No</label>
+            </div>
         </fieldset>
         <fieldset id="equiInf">
             <legend>Equipo informatico</legend>
@@ -90,41 +128,47 @@
             <br>
             <div id="ordenador">
                 <!--Tipo de ordenador-->
-                <label for="tipoOrdSel">Tipo de ordenador</label>
-                <select id="tipoOrdSel">
-                    <option value="default">--Elige una opcion--</option>
-                    <option value="portatil">portatil</option>
-                    <option value="convertible">convertible</option>
-                    <option value="sobremesa">sobremesa</option>
-                </select>
+                <div id="tipo">
+                    <label for="tipoOrdSel">Tipo de ordenador</label>
+                    <select id="tipoOrdSel">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="portatil">portatil</option>
+                        <option value="convertible">convertible</option>
+                        <option value="sobremesa">sobremesa</option>
+                    </select>
+                </div>
                 <br>
                 <br>
 
                 <!--Antigüedad ordenador-->
-                <label for="antOrdSel">Antigüedad de ordenador</label>
-                <select id="antOrdSel">
-                    <option value="default">--Elige una opcion--</option>
-                    <option value="< 1">
-                        < 1 </option>
-                    <option value="1-2">1-2</option>
-                    <option value="2-4">2-4</option>
-                    <option value=">4">>4</option>
-                </select>
+                <div id="antiguedad">
+                    <label for="antOrdSel">Antigüedad de ordenador</label>
+                    <select id="antOrdSel">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="< 1">
+                            < 1 </option>
+                        <option value="1-2">1-2</option>
+                        <option value="2-4">2-4</option>
+                        <option value=">4">>4</option>
+                    </select>
+                </div>
                 <br></br>
 
                 <!--Ordenador de marca?-->
-                <label for="marcaOrd">Ordenador de marca?</label>
-                <input type="radio" name="marcaOrdenadorRad" id="mostrarMarOrdRad" value="Si">
-                <label for="ordenadorRad">Si</label>
-                <input type="radio" name="marcaOrdenadorRad" id="ocultarMarOrdRad" value="No">
-                <label for="ordenadorRad">No</label>
+                <div id="marcaSN">
+                    <label for="marcaOrd">Ordenador de marca?</label><br>
+                    <input type="radio" name="marcaOrdenadorRad" id="mostrarMarOrdRad" value="Si">
+                    <label for="ordenadorRad">Si</label>
+                    <input type="radio" name="marcaOrdenadorRad" id="ocultarMarOrdRad" value="No">
+                    <label for="ordenadorRad">No</label>
+                </div>
                 <br><br>
 
                 <!--Marcas de CPU-->
                 <div id="nomMarca">
                     <label for="nomMar">Nombre de marca</label>
                     <br>
-                    <input type="text" name="marca" id="id_marca" />
+                    <input type="text" name="marca" id="id_nomMarca" />
                 </div>
                 <br>
 
@@ -229,7 +273,7 @@
                 <div id="RAM">
                     <label for="">Memoria RAM</label>
                     <br>
-                    <select name="selRAM" id="">
+                    <select name="selRAM" id="idSelRAM">
                         <option value="default">--Elige una opcion--</option>
                         <option value="<4">
                             < 4 GB</option>
@@ -243,7 +287,7 @@
                 <div id="discoDuro">
                     <label for="">Disco duro</label>
                     <br>
-                    <select name="selHDD">
+                    <select name="selHDD" id="idSelHDD">
                         <option value="default">--Elige una opcion--</option>
                         <option value="<250">
                             < 250 GB</option>
@@ -257,7 +301,7 @@
                 <div id="pulgadas">
                     <label for="">Pantalla</label>
                     <br>
-                    <select name="selPulgadas" id="">
+                    <select name="selPulgadas" id="idSelPulg">
                         <option value="default">--Elige una opcion--</option>
                         <option value="13">13''</option>
                         <option value="15">15''</option>
@@ -272,7 +316,7 @@
                 <div id="internet">
                     <label for="">Conexion a internet</label>
                     <br>
-                    <select name="" id="">
+                    <select name="" id="internetSel">
                         <option value="default">--Elige una opcion--</option>
                         <option value="cable">cable</option>
                         <option value="fibra">fibra</option>
@@ -284,10 +328,11 @@
 
                 <!--propio o compartido-->
                 <div id="propComp">
+                    <label for="#">Propio o compartido</label><br>
+                    <input type="radio">
                     <label for="">Propio</label>
                     <input type="radio">
                     <label for="">Compartido</label>
-                    <input type="radio">
                 </div>
                 <br>
 
@@ -303,7 +348,7 @@
                 <div id="hDiaUso">
                     <label for="">Horas diarias de uso</label>
                     <br>
-                    <select name="selHSemUso" id="id_selHSemUso">
+                    <select name="selHDiaUso" id="id_selHDiaUso">
                         <option value="<1">< 1</option>
                         <option value="1-2">1-2</option>
                         <option value="2-3">2-3</option>
@@ -336,8 +381,10 @@
         </fieldset>
         </div>
 
-        <button type="submit" id="enviaForm" disabled>Enviar</button>
-        <button type="reset" id="LimpiaForm">Limpiar</button>
+        <div class="btns">
+            <button type="submit" id="enviaForm" disabled>Enviar</button>
+            <button type="reset" id="LimpiaForm">Limpiar</button>
+        </div>
     </form>
 
     <script src="js/validarForm.js"></script>
