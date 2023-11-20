@@ -117,15 +117,16 @@ function finiciar() {
     // validar selects
     var selects = document.getElementsByTagName('select');
 
-    Array.from(selects).forEach(item => {
+    var newSelects = Array.from( Object.values(selects));
+
+    newSelects.forEach(item => {
         item.addEventListener('change', (e)=>{
-            if (item.style.display == 'block') {
+            /* if (item.style.display === 'block') {
                 if (e.target.selectedIndex != 0) {
                     e.target.style.border = '1px solid red';
                 }
-                console.log(e.target);
-                console.log(typeof(selects));
-            }
+            } */
+            console.log(item.style.display);
         })
     })
     
@@ -249,7 +250,7 @@ function finiciar() {
         ventana.document.write('</table>');
     })
 
-    document.getElementById('limpiaForm').addEventListener('click', (e) => {
+    document.getElementById('LimpiaForm').addEventListener('click', (e) => {
         e.preventDefault();
         document.forms[0].reset();
         document.getElementById('equiInf').style.display = 'none';
