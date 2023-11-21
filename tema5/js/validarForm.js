@@ -1,5 +1,3 @@
-"use strict";
-
 document.addEventListener('DOMContentLoaded', finiciar);
 
 function finiciar() {
@@ -115,21 +113,25 @@ function finiciar() {
     })
 
     // validar selects
-    var selects = document.getElementsByTagName('select');
+    var selects = document.querySelectorAll('div:has(select)');
 
-    var newSelects = Array.from( Object.values(selects));
+    var newSelects = Array.from(selects);
 
     newSelects.forEach(item => {
-        item.addEventListener('change', (e)=>{
-            /* if (item.style.display === 'block') {
-                if (e.target.selectedIndex != 0) {
-                    e.target.style.border = '1px solid red';
+        item.addEventListener('change', (e) => {
+            var selectElement = item.querySelector('select');
+
+            if (selectElement && item.style.display === 'block' || selectElement) {
+                if (selectElement.selectedIndex === 0) {
+                    selectElement.style.border = '3px solid red';
+                } else {
+                    selectElement.style.border = 'none';
                 }
-            } */
-            console.log(item.style.display);
-        })
-    })
-    
+            }
+        });
+    });
+
+
     var edad = document.getElementById('id_edad');
     var sexo = document.getElementById('sexo');
     var estudios = document.getElementById('estudios');
@@ -156,7 +158,6 @@ function finiciar() {
             }
 
             actualizarEstadoBoton();
-            console.log(edad);
         })
     } else {
         console.error('no existe el elemento edad');
@@ -165,7 +166,6 @@ function finiciar() {
     if (sexo) {
         sexo.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(sexo);
         });
     } else {
         console.error('no existe el elemento sexo');
@@ -174,16 +174,14 @@ function finiciar() {
     if (estudios) {
         estudios.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(estudios);
         });
     } else {
         console.error('no existe el elemento estudios');
     }
 
     if (estudiosSel) {
-        estudiosSel.addEventListener('change', ()=>{
+        estudiosSel.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(estudiosSel);
         })
     } else {
         console.error('no existe el elemento estudiosSel');
@@ -192,34 +190,30 @@ function finiciar() {
     if (ordenador) {
         ordenador.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(ordenador);
         });
     } else {
         console.error('no existe el elemento ordenador');
     }
 
-    if(tipo){
-        tipo.addEventListener('change', ()=>{
+    if (tipo) {
+        tipo.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(tipo);
         })
     } else {
         console.error('no existe el elemento tipo');
     }
 
-    if(antiguedad){
-        antiguedad.addEventListener('change', ()=>{
+    if (antiguedad) {
+        antiguedad.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(antiguedad);
         })
     } else {
         console.error('no existe el elemento antiguedad');
     }
 
-    if(marcaSN){
-        marcaSN.addEventListener('change', ()=>{
+    if (marcaSN) {
+        marcaSN.addEventListener('change', () => {
             actualizarEstadoBoton();
-            console.log(marcaSN);
         })
     } else {
         console.error('no existe el elemento marcaSN');

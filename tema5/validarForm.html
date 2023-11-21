@@ -173,13 +173,15 @@
                 <br>
 
                 <!--CPU-->
-                <label for="selNomMar">Selecciona una CPU</label>
-                <br>
-                <select name="marcasCPU" id="CPU1">
-                    <option value="default">--Elige una opcion--</option>
-                    <option value="Intel">Intel</option>
-                    <option value="AMD">AMD</option>
-                </select>
+                <div id="selNomMar">
+                    <label for="selNomMar">Selecciona una CPU</label>
+                    <br>
+                    <select name="marcasCPU" id="CPU1">
+                        <option value="default">--Elige una opcion--</option>
+                        <option value="Intel">Intel</option>
+                        <option value="AMD">AMD</option>
+                    </select>
+                </div>
                 <br><br>
 
                 <!--Modelos de intel-->
@@ -349,6 +351,7 @@
                     <label for="">Horas diarias de uso</label>
                     <br>
                     <select name="selHDiaUso" id="id_selHDiaUso">
+                        <option value="default">--Elige una opcion--</option>
                         <option value="<1">< 1</option>
                         <option value="1-2">1-2</option>
                         <option value="2-3">2-3</option>
