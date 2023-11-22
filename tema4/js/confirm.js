@@ -22,7 +22,7 @@ window.addEventListener('DOMContentLoaded', function () {
         minuto = reloj.getMinutes();
         segundos = reloj.getSeconds();
 
-        document.getElementById('reloj').innerHTML = `${hora}:${minuto}:${segundos}`;
+        document.getElementById('reloj').innerHTML = `${hora < 10 ? '0' + hora : hora}:${minuto < 10 ? '0' + minuto : minuto}:${segundos < 10 ? '0' + segundos : segundos}`;
     }
 
     setInterval(reloj, 1000);
