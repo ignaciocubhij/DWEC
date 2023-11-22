@@ -12,15 +12,30 @@
             width: 100vw;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-size: 120pt;
             font-family: monospace;
+            background-color: #c84313b2;
+            color: white;
+        }
+        body span{
+            font-size: 120pt;
+        }
+        body p{
+            font-size: 40pt;
         }
     </style>
 </head>
 <body>
     <span id="reloj"></span>
+    <p>Hora actual</p>
+
+    <label for="cgColor">Cambiar fondo</label>
+    <input type="color" name="" id="cgColor">
+    <br>
+    <label for="cgText">Cambiar texto</label>
+    <input type="color" name="" id="cgText">
 
     <script src="js/confirm.js"></script>
 </body>

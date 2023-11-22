@@ -26,4 +26,18 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     setInterval(reloj, 1000);
+
+    var cgColor = document.getElementById('cgColor');
+    cgColor.addEventListener('change', (e)=>{
+        e.preventDefault();
+
+        this.document.body.style.backgroundColor = cgColor.value;
+    })
+    
+    var cgText = document.getElementById('cgText');
+    cgText.addEventListener('change', (e)=>{
+        e.preventDefault();
+
+        this.document.body.style.color = cgText.value;
+    })
 })
