@@ -31,13 +31,13 @@ window.addEventListener('DOMContentLoaded', function () {
     cgColor.addEventListener('change', (e)=>{
         e.preventDefault();
 
-        this.document.body.style.backgroundColor = cgColor.value;
+        this.document.getElementsByTagName('div')[0].style.backgroundColor = cgColor.value;
     })
     
     var cgText = document.getElementById('cgText');
     cgText.addEventListener('change', (e)=>{
         e.preventDefault();
 
-        this.document.body.style.color = cgText.value;
+        this.document.getElementsByTagName('div')[0].style.color = cgText.value;
     })
 })
