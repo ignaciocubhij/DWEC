@@ -19,21 +19,21 @@
             flex-direction: column;
             padding: 20px;
         }
-        div{
+        section{
             width: 80%;
             height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
             font-family: monospace;
             background-color: black;
             color: white;
         }
-        div span{
-            font-size: 120pt;
+        section span{
+            font-size: 70pt;
         }
-        div p{
+        section p{
             font-size: 40pt;
         }
         input{
@@ -53,10 +53,17 @@
         <label for="cgText">Cambiar texto</label>
         <input type="color" name="" id="cgText">
     </aside>
-    <div>
-        <span id="reloj"></span>
-        <p>Hora actual</p>
-    </div>
+    <section>
+        <article>
+            <span id="reloj"></span>
+            <p>Hora actual</p>
+        </article>
+
+        <article>
+            <span id="fecha"></span>
+            <p>Fecha actual</p>
+        </article>
+    </section>
 
     <script src="js/confirm.js"></script>
 </body>

@@ -2,52 +2,60 @@ document.addEventListener("DOMContentLoaded", fIniciar);
 
 function fIniciar() {
     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-    var temperaturas = new Array(), precipitaciones = new Array();
 
-    var temp = 0, lluvia = 0;
-    //recorre el array meses
+    var temperaturas = new Array();
+    var precipitaciones = new Array();
+
     for (let i = 0; i < meses.length; i++) {
-        //el bucle se ejecuta hasta que haya un valor comprendido entre -10 y 40
+        var temp;
         do {
             temp = prompt(`Dime temperatura para el mes ${meses[i]}`);
-            
-            if (temp != "") {
-                temperaturas.push(temp);
-            }
 
-            for (let j = 0; j < temperaturas.length; j++) {
-                console.log(temperaturas);
-                if (meses[j] != "Enero") {
-                    if (Math.abs(temperaturas[j] - temperaturas[j-1]) == 8) {
-                        console.log('hola');
-                    }
-                }
+            if (isValidInput(temp, temperaturas, i)) {
+                temperaturas.push(temp);
+                break;
+            } else {
+                alert("Ingresa una temperatura válida entre -10 y 40, y asegúrate de que la diferencia no sea mayor a 8 grados respecto al mes anterior.");
             }
-        } while (parseInt(temp) <= parseInt("-10") || parseInt(temp) >= 40 || temp == "" || temp == null);
+        } while (true);
     }
 
     for (let i = 0; i < meses.length; i++) {
+        var lluvia;
         do {
             lluvia = prompt(`Dime lluvia para el mes ${meses[i]}`);
-            
-            if (lluvia != "") {
-                precipitaciones.push(temp);
-            }
 
-            for (let j = 0; j < precipitaciones.length; j++) {
-                console.log(precipitaciones);
-                if (meses[j] != "Enero") {
-                    if (Math.abs(precipitaciones[j] - precipitaciones[j-1]) == 8) {
-                        console.log('hola');
-                    }
-                }
+            if (isValidInput(lluvia, precipitaciones, i)) {
+                precipitaciones.push(lluvia);
+                break;
+            } else {
+                alert("Ingresa una cantidad de lluvia válida entre 0 y 50, y asegúrate de que la diferencia no sea mayor a 8 respecto al mes anterior.");
             }
-        } while (parseInt(lluvia) <= parseInt(0) || parseInt(lluvia) >= 50 || lluvia == "" || lluvia == null);     
+        } while (true);
     }
 
     for (let i = 0; i < temperaturas.length; i++) {
-        document.getElementById('temp').innerHTML += meses[i] + "|" + temperaturas[i] + "<br>";
-        
+        var barCharacter = "|";
+        var absValue = Math.abs(temperaturas[i]);
+
+        document.getElementById('temp').innerHTML += meses[i] + " " + barCharacter.repeat(absValue) + temperaturas[i] + "<br>";
     }
-    document.getElementById('prec').innerHTML += '';
+
+    // Display precipitation data
+    for (let i = 0; i < precipitaciones.length; i++) {
+        var barCharacter = "|";
+        var absValue = Math.abs(precipitaciones[i]);
+
+        document.getElementById('prec').innerHTML += meses[i] + " " + barCharacter.repeat(absValue) + precipitaciones[i] + "<br>";
+    }
+
+    // Function to check if the input is valid
+    function isValidInput(input, array, index) {
+        return (
+            input !== "" &&
+            input !== null &&
+            (parseInt(input) > -10 && parseInt(input) < 40) &&
+            (index === 0 || Math.abs(input - array[index - 1]) <= 8)
+        );
+    }
 }

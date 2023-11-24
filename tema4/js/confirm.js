@@ -26,18 +26,34 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     setInterval(reloj, 1000);
+    
+    function fecha(){
+        var dia;
+        var mes;
+        var año;
+        var fecha = new Date();
 
+        dia = fecha.getDate();
+        mes = fecha.getMonth();
+        año = fecha.getFullYear();
+        
+        document.getElementById('fecha').innerHTML = `${dia}/${mes+1}/${año}`;
+    }
+    setInterval(fecha, 1000);
+    
     var cgColor = document.getElementById('cgColor');
     cgColor.addEventListener('change', (e)=>{
         e.preventDefault();
 
-        this.document.getElementsByTagName('div')[0].style.backgroundColor = cgColor.value;
+        this.localStorage.setItem('bgColor', cgColor.value);
+        document.getElementsByTagName('div')[0].style.backgroundColor = this.localStorage.getItem('bgColor');
     })
     
     var cgText = document.getElementById('cgText');
     cgText.addEventListener('change', (e)=>{
         e.preventDefault();
-
-        this.document.getElementsByTagName('div')[0].style.color = cgText.value;
+        
+        this.localStorage.setItem('txtColor', cgText.value);
+        document.getElementsByTagName('div')[0].style.color = this.localStorage.getItem('txtColor');
     })
 })
