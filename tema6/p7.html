@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Práctica 7 - DOM</title>
+                <meta charset="utf-8">
+                <style type="text/css">
+                        body {font-family: sans-serif; text-align:center; }
+                        #nodoRaiz {border-style:solid;margin: 30px; padding:25px; display:inline-block;}
+                        .nodoHijo {background-color: yellow; border-style:solid;margin: 20px; padding:15px; display:inline-block;}
+                        #contenedor {width:405px;margin: 0 auto;}
+                        #adelante, #atras {padding:15px; width: 130px; float: left; margin-left:20px; 
+                                           color: white; border-radius: 40px; background: rgb(202, 60, 60);}
+                        #adelante:hover, #atras:hover {background: rgb(66, 184, 221);}
+                </style>
+                <script type="text/javascript">
+                        var contador = 1
+                        function crearNodoHijo(nodoPadre) {
+                                var nodoHijo = document.createElement("div");
+                                var nodoTexto = document.createTextNode("Soy el nodo hijo "+contador);
+                                nodoHijo.setAttribute('class','nodoHijo'); //nodoHijo.className = 'nodoHijo'; otra forma
+                                nodoHijo.appendChild(nodoTexto); 
+                                nodoPadre.appendChild(nodoHijo);
+                                contador = contador +1;
+                        }
+                        function removeNodo() {
+                                var nodosEliminar = document.querySelectorAll('.nodoHijo');
+                                if (nodosEliminar.length>0) { //Si hay nodos que se puedan eliminar
+                                        var nodoAEliminar = nodosEliminar[nodosEliminar.length-1]; //Acceso al último nodo hijo
+                                        nodoAEliminar.parentNode.removeChild(nodoAEliminar);
+                                        contador = contador -1;
+                                }
+                        }
+                </script>
+        </head>
+        <body>
+                <div id="nodoRaiz" onclick="crearNodoHijo(this)">Contenido inicial es este texto</div>
+                <div id="contenedor">
+                        <div id ="atras" onclick="crearNodoHijo(document.getElementById('nodoRaiz'))"> Añadir </div>
+                        <!-- 
+                        <div id ="atras" onclick="crearNodoHijo(document.querySelector('#nodoRaiz'))"> Añadir </div>/
+                        /-->
+                        <div id="adelante" onclick="removeNodo()" > Eliminar </div>
+                </div>
+        </body>
+</html>

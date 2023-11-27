@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Ejemplo práctico de cookies</h1>
+
+    <p>Haz click en el boton para mostrar las cookies</p>
+    <button onclick="alertCookie()">Mostrar cookies</button>
+
+    <script>
+
+        //nueva cookie
+        document.cookie = "nombre=oeschger";
+        document.cookie = "comida_preferida=tripa";
+
+        function alertCookie() {
+            alert(document.cookie); // obtiene todas las cookies
+        }
+
+        
+    </script>
+</body>
+
+</html>

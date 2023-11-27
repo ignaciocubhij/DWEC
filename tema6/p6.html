@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Práctica 6 - DOM</title>
+		<meta charset="utf-8">
+		<style type="text/css">
+			body {font-family: sans-serif; text-align:center; }
+			div {border-style:solid;margin: 30px; padding:25px; display:inline-block;}
+			div div {background-color: yellow;}
+		</style>
+		<script type="text/javascript">
+			function crearNodoHijo(nodoPadre) {
+				var nodoHijo = nodoPadre;
+				document.body.appendChild(nodoHijo);
+			}
+		</script>
+	</head>
+	<body>
+		<div id="nodoRaiz" onclick="crearNodoHijo(this)">Pulsa aquí para duplicar este nodo</div>
+	</body>
+</html>
