@@ -3,7 +3,7 @@
 var ej1 = document.getElementsByTagName('a');
 console.log(ej1.length);
 
-var ej2 = ej1.length.getAttribute();
+var ej2 = ej1.childNodes[ej1.childNodes.length-1].getAttribute();
 console.log(ej2);
 
 var ej3;
