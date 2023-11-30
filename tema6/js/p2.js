@@ -6,17 +6,18 @@ console.log(ej1.length);
 var ej2 = ej1[ej1.length-1].getAttribute('href');
 console.log(ej2);
 
-var cont = 0;
+var ej3;
 
-for (let i = 0; i < ej1.length; i++) {
-    if (ej1[i].getAttribute('href') === 'http://prueba') {
-        cont++;
-    }
+function clean(node) {
+	for (var n = 0; n < node.childNodes.length; n++) {
+		var child = node.childNodes[n];
+		if(child.nodeType === 8 || (child.nodeType === 3 && !/\S/.test(child.nodeValue))) {
+			node.removeChild(child);
+			n--;
+		} else if (child.nodeType === 1) {
+			clean(child);
+		}
+	}
 }
-
-var ej3 = cont;
-console.log(ej3);
-
-var thirdParagraph = document.getElementsByTagName('p')[2];
-var ej4 = thirdParagraph.getElementsByTagName('a').length;
+var ej4 = clean(document.body.childNodes);
 console.log(ej4);

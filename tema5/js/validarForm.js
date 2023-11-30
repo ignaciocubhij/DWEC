@@ -9,6 +9,12 @@ function finiciar() {
         txtOtras: /^\w+$/
     };
 
+    var flags = {
+        edad: false,
+        sexo: false,
+        estudios: false
+    }
+
     document.getElementById('id_estudiosRad1').addEventListener('click', (e) => {
         if (e.target.checked) {
             document.getElementById('selEstudios').style.display = 'block';
@@ -182,18 +188,26 @@ function finiciar() {
         edad.addEventListener('input', () => {
             if (!reg.edad.test(edad.value)) {
                 edad.style.border = '3px solid red';
+                document.getElementById('error_edad').innerHTML = 'Pon un numero valido';
+                flags.edad = false;
             } else {
                 edad.style.border = 'none';
+                document.getElementById('error_edad').innerHTML = '';
+                flags.edad = true;
             }
 
             actualizarEstadoBoton();
         })
     } else {
         console.error('no existe el elemento edad');
+        flags.edad = false;
     }
 
     if (sexo) {
         sexo.addEventListener('change', () => {
+            if (sexo.querySelector('input:checked') !== null) {
+                flags.sexo = true;
+            }
             actualizarEstadoBoton();
         });
     } else {
@@ -202,6 +216,9 @@ function finiciar() {
 
     if (estudios) {
         estudios.addEventListener('change', () => {
+            if (estudios.querySelector('input:checked') !== null) {
+                flags.estudios = true;
+            }
             actualizarEstadoBoton();
         });
     } else {
@@ -259,15 +276,21 @@ function finiciar() {
     }
 
     function actualizarEstadoBoton() {
-        console.log('La funcion devuelve ' + validarSelects());
+
         if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
             //validar segundo fieldset
             document.getElementById('enviaForm').disabled = false;
-        } else if (ordenador.querySelector('input:checked').value === 'Si' && validarSelects && nomMarca && dSemUso && txtOtras) {
+        } else if (
+            ordenador.querySelector('input:checked').value === 'Si' &&
+            validarSelects() &&
+            nomMarca &&
+            dSemUso &&
+            txtOtras
+        ) {
             document.getElementById('enviaForm').disabled = false;
         } else {
             document.getElementById('enviaForm').disabled = true;
-        }
+        }        
     }
 
     document.getElementById('enviaForm').addEventListener('click', (e) => {
@@ -284,12 +307,7 @@ function finiciar() {
             tablaHTML += '<tr><th>Dato</th></tr>';
 
             // Agregar datos al array
-            if (ordenador.querySelector('input:checked').value === 'Si' && validarSelects && nomMarca && dSemUso && txtOtras) {
-                datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value, nomMarca.value, dSemUso.value, txtOtras.value);
-            } else if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
-                datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value);
-            }
-
+            datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value === 'No' ? estudios.querySelector('input:checked').value : estudios.querySelector('input:checked').value + ': ' + estudiosSel.value, ordenador.querySelector('input:checked').value, tipo.value, antiguedad.value, marcaSN.querySelector('input:checked').value, marcaSN.querySelector('input:checked').value === 'Si' ? nomMarca.value : '', CPUs.value, CPUs.value === 'Intel' ? modIntSel.value : CPUs.value === 'AMD' ? modAMDSel.value : '', modIntSel.value === 'corei3' ? velCi3.value : modIntSel.value === 'corei5' ? velCi5.value : modIntSel.value === 'corei7' ? velCi7.value : modAMDSel.value === 'ryzen5' ? velRy5.value : modAMDSel.value === 'ryzen7' ? ryzen7.value : '', RAM.value, HDD.value, pulgadas.value, internet.value, propComp.querySelector('input:checked').value, dSemUso.value, hDiaUso.value, actRea.querySelectorAll('input:checked') === 'otras' ? document.getElementById('otrasText').value : '');
 
             // Agregar filas de datos a la tabla
             for (var i = 0; i < datos.length; i++) {
