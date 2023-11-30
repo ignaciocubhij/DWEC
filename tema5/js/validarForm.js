@@ -72,6 +72,16 @@ function finiciar() {
         } else {
             modAMD.style.display = 'none';
         }
+
+        if (CPUs.value == 'default') {
+            modAMD.style.display = 'none';
+            modInt.style.display = 'none';
+            velCi3.style.display = 'none';
+            velCi5.style.display = 'none';
+            velCi7.style.display = 'none';
+            velRy5.style.display = 'none';
+            velRy7.style.display = 'none';
+        }
     })
 
     // despliegue de velocidades
@@ -115,7 +125,7 @@ function finiciar() {
         }
     })
 
-    txtOtras.addEventListener('keyup', (e)=>{
+    txtOtras.addEventListener('keyup', (e) => {
         if (!reg.txtOtras.test(txtOtras.value)) {
             e.target.style.border = '3px solid red';
         } else {
@@ -130,16 +140,19 @@ function finiciar() {
     var validarSelects = (e) => {
         var item = e.currentTarget;
         var selectElement = item.querySelector('select');
+        var sem = false;
 
         if (selectElement && item.style.display === 'block' || selectElement) {
             if (selectElement.selectedIndex === 0) {
                 selectElement.style.border = '3px solid red';
-                return false;
+                sem = false;
             } else {
                 selectElement.style.border = 'none';
-                return true;
+                sem = true;
             }
         }
+
+        return sem;
     }
 
     newSelects.forEach(item => {
@@ -167,7 +180,7 @@ function finiciar() {
 
     if (edad) {
         edad.addEventListener('input', () => {
-            if (!reg.edad.test(edad.value) || isNaN(edad.value)) {
+            if (!reg.edad.test(edad.value)) {
                 edad.style.border = '3px solid red';
             } else {
                 edad.style.border = 'none';
@@ -236,7 +249,7 @@ function finiciar() {
     }
 
     if (nomMarca) {
-        nomMarca.addEventListener('keyup', (e)=>{
+        nomMarca.addEventListener('keyup', (e) => {
             if (!reg.nomMarca.test(nomMarca.value)) {
                 e.target.style.border = '3px solid red';
             } else {
@@ -246,7 +259,7 @@ function finiciar() {
     }
 
     function actualizarEstadoBoton() {
-
+        console.log('La funcion devuelve ' + validarSelects());
         if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
             //validar segundo fieldset
             document.getElementById('enviaForm').disabled = false;
@@ -268,15 +281,19 @@ function finiciar() {
 
             // Construir la tabla con los datos
             var tablaHTML = '<table border="1">';
-            tablaHTML += '<tr><th>Dato</th><th>Valor</th></tr>';
+            tablaHTML += '<tr><th>Dato</th></tr>';
 
             // Agregar datos al array
-            datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value === 'No' ? estudios.querySelector('input:checked').value : estudios.querySelector('input:checked').value + ': ' + estudiosSel.value, ordenador.querySelector('input:checked').value, tipo.value, antiguedad.value, marcaSN.querySelector('input:checked').value, marcaSN.querySelector('input:checked').value === 'Si' ? nomMarca.value : '', CPUs.value, CPUs.value === 'Intel' ? modIntSel.value : CPUs.value === 'AMD' ? modAMDSel.value : '', modIntSel.value === 'corei3' ? velCi3.value : modIntSel.value === 'corei5' ? velCi5.value : modIntSel.value === 'corei7' ? velCi7.value : modAMDSel.value === 'ryzen5' ? velRy5.value : modAMDSel.value === 'ryzen7' ? ryzen7.value : '', RAM.value, HDD.value, pulgadas.value, internet.value, propComp.querySelector('input:checked').value, dSemUso.value, hDiaUso.value, actRea.querySelectorAll('input:checked') === 'otras' ? document.getElementById('otrasText').value : '');
+            if (ordenador.querySelector('input:checked').value === 'Si' && validarSelects && nomMarca && dSemUso && txtOtras) {
+                datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value, nomMarca.value, dSemUso.value, txtOtras.value);
+            } else if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
+                datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value);
+            }
+
 
             // Agregar filas de datos a la tabla
             for (var i = 0; i < datos.length; i++) {
                 tablaHTML += '<tr><td>' + datos[i] + '</td></tr>';
-                console.log(datos);
             }
 
             tablaHTML += '</table>';
@@ -291,5 +308,6 @@ function finiciar() {
         e.preventDefault();
         document.forms[0].reset();
         document.getElementById('equiInf').style.display = 'none';
+        document.getElementById('enviaForm').disabled = true;
     })
 }
