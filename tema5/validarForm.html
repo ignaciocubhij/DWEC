@@ -70,6 +70,11 @@
             border-radius: 5px;
             border: none;
         }
+
+        .error{
+            color: red;
+            font-weight: bolder;
+        }
     </style>
 </head>
 
@@ -82,6 +87,7 @@
             <div>
                 <label for="id_edad">Edad:</label><br>
                 <input type="text" id="id_edad" name="edad" />
+                <div id="error_edad" class="error"></div>
             </div>
             <br>
             <div id="sexo">

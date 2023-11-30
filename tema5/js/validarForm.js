@@ -9,6 +9,12 @@ function finiciar() {
         txtOtras: /^\w+$/
     };
 
+    var flags = {
+        edad: false,
+        sexo: false,
+        estudios: false
+    }
+
     document.getElementById('id_estudiosRad1').addEventListener('click', (e) => {
         if (e.target.checked) {
             document.getElementById('selEstudios').style.display = 'block';
@@ -169,18 +175,26 @@ function finiciar() {
         edad.addEventListener('input', () => {
             if (!reg.edad.test(edad.value) || isNaN(edad.value)) {
                 edad.style.border = '3px solid red';
+                document.getElementById('error_edad').innerHTML = 'Pon un numero valido';
+                flags.edad = false;
             } else {
                 edad.style.border = 'none';
+                document.getElementById('error_edad').innerHTML = '';
+                flags.edad = true;
             }
 
             actualizarEstadoBoton();
         })
     } else {
         console.error('no existe el elemento edad');
+        flags.edad = false;
     }
 
     if (sexo) {
         sexo.addEventListener('change', () => {
+            if (sexo.querySelector('input:checked') !== null) {
+                flags.sexo = true;
+            }
             actualizarEstadoBoton();
         });
     } else {
@@ -189,6 +203,9 @@ function finiciar() {
 
     if (estudios) {
         estudios.addEventListener('change', () => {
+            if (estudios.querySelector('input:checked') !== null) {
+                flags.estudios = true;
+            }
             actualizarEstadoBoton();
         });
     } else {
@@ -247,14 +264,32 @@ function finiciar() {
 
     function actualizarEstadoBoton() {
 
-        if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
-            //validar segundo fieldset
+        if (
+            flags.edad &&
+            flags.sexo &&
+            flags.estudios &&
+            (
+                estudios.querySelector('input:checked').value === 'No' ||
+                (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)
+            ) &&
+            (
+                ordenador.querySelector('input:checked').value === 'No' ||
+                ordenador.querySelector('input:checked').value === 'Si'
+            )
+        ) {
+            // validar segundo fieldset
             document.getElementById('enviaForm').disabled = false;
-        } else if (ordenador.querySelector('input:checked').value === 'Si' && validarSelects && nomMarca && dSemUso && txtOtras) {
+        } else if (
+            ordenador.querySelector('input:checked').value === 'Si' &&
+            validarSelects() &&
+            nomMarca &&
+            dSemUso &&
+            txtOtras
+        ) {
             document.getElementById('enviaForm').disabled = false;
         } else {
             document.getElementById('enviaForm').disabled = true;
-        }
+        }        
     }
 
     document.getElementById('enviaForm').addEventListener('click', (e) => {
@@ -273,7 +308,7 @@ function finiciar() {
             // Agregar datos al array
             if (ordenador.querySelector('input:checked').value === 'Si' && validarSelects && nomMarca && dSemUso && txtOtras) {
                 datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value, nomMarca.value, dSemUso.value, txtOtras.value);
-            } else if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
+            } else if (flags.edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
                 datos.push(edad.value, sexo.querySelector('input:checked').value, estudios.querySelector('input:checked').value, (estudios.querySelector('input:checked').value === 'Si') ? estudiosSel.value : ' ', ordenador.querySelector('input:checked').value);
             }
 
