@@ -277,7 +277,7 @@ function finiciar() {
 
     function actualizarEstadoBoton() {
 
-        if (edad && sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
+        if (flags.edad && flags.sexo && (estudios.querySelector('input:checked').value === 'No' || (estudios.querySelector('input:checked').value === 'Si' && estudiosSel.selectedIndex !== 0)) && ordenador.querySelector('input:checked').value === 'No' || ordenador.querySelector('input:checked').value === 'Si') {
             //validar segundo fieldset
             document.getElementById('enviaForm').disabled = false;
         } else if (

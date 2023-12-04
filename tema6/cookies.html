@@ -10,20 +10,32 @@
 <body>
     <h1>Ejemplo práctico de cookies</h1>
 
-    <p>Haz click en el boton para mostrar las cookies</p>
-    <button onclick="alertCookie()">Mostrar cookies</button>
+    <label for="edad">Edad:</label>
+    <input type="text" id="edad" />
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" />
+
+    <button>Enviar</button>
+    <div id="res"></div>
 
     <script>
+        let nombre = document.getElementById("nombre");
+        let edad = document.getElementById("edad");
+        let button = document.getElementsByTagName('button')[0];
 
-        //nueva cookie
-        document.cookie = "nombre=oeschger";
-        document.cookie = "comida_preferida=tripa";
-
-        function alertCookie() {
-            alert(document.cookie); // obtiene todas las cookies
+        
+        var aceptarCookies = () => {
+            var aceptar = confirm('Aceptas las cookies?');
+            
+            if (aceptar) {
+                document.cookie = `nombre=${nombre.value}`;
+                document.cookie = `edad=${edad.value}`;
+            } else {
+                window.close();
+            }
         }
-
-        document.cookie = "nombre=pepe";
+        
+        button.addEventListener('click', aceptarCookies);
     </script>
 </body>
 
