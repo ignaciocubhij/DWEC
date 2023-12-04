@@ -2,20 +2,21 @@ const botonAceptarCookies = document.getElementById('btn-aceptar-cookies');
 const avisoCookies = document.getElementById('aviso-cookies');
 const fondoAvisoCookies = document.getElementById('fondo-aviso-cookies');
 
-dataLayer = [];
+datos = [];
 
-if(!localStorage.getItem('cookies-aceptadas')){
-	avisoCookies.classList.add('activo');
-	fondoAvisoCookies.classList.add('activo');
+if(document.cookie.length === 0){
+	avisoCookies.setAttribute('class', 'aviso-cookies activo');
+	fondoAvisoCookies.setAttribute('class', 'fondo-aviso-cookies activo');
 } else {
-	dataLayer.push({'event': 'cookies-aceptadas'});
+	datos.push({'event': 'cookies-aceptadas'});
 }
 
 botonAceptarCookies.addEventListener('click', () => {
-	avisoCookies.classList.remove('activo');
-	fondoAvisoCookies.classList.remove('activo');
+	avisoCookies.setAttribute('class', 'aviso-cookies');
+	fondoAvisoCookies.setAttribute('class', 'fondo-aviso-cookies');
 
-	localStorage.setItem('cookies-aceptadas', true);
+	document.cookie = 'cookies-aceptadas=true';
+    document.cookie = `language=${navigator.language}`;
 
-	dataLayer.push({'event': 'cookies-aceptadas'});
+	datos.push({'event': 'cookies-aceptadas'});
 });
