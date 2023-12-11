@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const resourcesToCache = [
 		'/',
-		'/area/DWEC/tema6/js/app.js',
 		'/area/DWEC/tema6/js/ejemlo2.js',
 		'/area/DWEC/tema6/js/p2.js',
 	];
