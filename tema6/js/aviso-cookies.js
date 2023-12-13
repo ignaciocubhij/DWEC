@@ -17,6 +17,7 @@ botonAceptarCookies.addEventListener('click', () => {
 
 	document.cookie = 'cookies-aceptadas=true';
 	document.cookie = `language=${navigator.language}`;
+	document.getElementById('output').innerText = document.cookie;
 
 	datos.push({ 'event': 'cookies-aceptadas' });
 });
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		response.text().then((scriptContent) => {
 			const script = document.createElement('script');
 			script.textContent = scriptContent;
-			document.getElementById('output').appendChild(script);
+			document.body.appendChild(script);
 		});
 	}
 });
