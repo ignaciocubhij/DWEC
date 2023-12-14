@@ -20,8 +20,7 @@ function mostrar(e){
 //crear tantos botones como se indique en el objeto
 for(let i = 0; i < val.num; i++){
     var boton = crearElem(main, 'button', `boton ${i+1}`);
-    boton.style.backgroundColor = `#${Math.random().toString(16).slice(2,8)}`;
-    boton.style.color = `white`;
+    boton.style.cssText = `padding: 10px;margin: 5px;color:white;background-color:#${Math.random().toString(16).slice(2,8)}`;
     boton.total = 0;
     boton.classList.add('btn');
     boton.addEventListener('click', mostrar);
