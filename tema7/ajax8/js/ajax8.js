@@ -19,14 +19,9 @@ function loadDoc(url, method, params, cFunction) {
         }
     }
 
-    if (method.toUpperCase() === 'GET') {
-        xhttp.open('GET', url + '?' + params, true);
-        xhttp.send();
-    } else if (method.toUpperCase() === 'POST') {
-        xhttp.open('POST', url, true);
-        xhttp.setRequestHeader('Content-type', 'text/txt');
-        xhttp.send(params);
-    }
+    xhttp.open('POST', url, true);
+    xhttp.setRequestHeader('Content-type', 'text/txt');
+    xhttp.send(params);
 }
 
 function mostrar(xhttp) {
