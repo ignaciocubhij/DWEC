@@ -1,32 +1,38 @@
 document.addEventListener('DOMContentLoaded', finiciar);
 
-function finiciar(){
+function finiciar() {
     document.getElementById('id_boton').addEventListener('click', buscar);
 }
 
-function buscar(){
+function buscar() {
     var nombre = document.getElementById('nombre').value;
-    loadDoc(`comprobarDisponibilidad.php?login=${encodeURIComponent(nombre)}}`, mostrar);
+    loadDoc('comprobarDisponibilidad.php', 'POST', 'login=' + encodeURIComponent(nombre), mostrar);
     console.log(nombre);
 }
 
-function loadDoc(url, cFunction){
+function loadDoc(url, method, params, cFunction) {
     var xhttp;
     xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             cFunction(this);
         }
     }
-    xhttp.open('POST', url, true);
-    xhttp.setRequestHeader('Content-type', 'text/txt');
-    xhttp.send();
+
+    if (method.toUpperCase() === 'GET') {
+        xhttp.open('GET', url + '?' + params, true);
+        xhttp.send();
+    } else if (method.toUpperCase() === 'POST') {
+        xhttp.open('POST', url, true);
+        xhttp.setRequestHeader('Content-type', 'text/txt');
+        xhttp.send(params);
+    }
 }
 
-function mostrar(xhttp){
+function mostrar(xhttp) {
     var resultado = document.getElementById('id_resultado');
     var datos = JSON.parse(xhttp.responseText);
-    var salida = `Disponible: ${datos.disponible}`;
-    resultado.innerHTML = salida;
     console.log(datos);
+    var salida = `Disponible: ${datos[0].disponible}`;
+    resultado.innerHTML = salida;
 }
