@@ -25,7 +25,7 @@
 
         if (mysqli_num_rows($consulta) > 0) {
             while ($row = mysqli_fetch_array($consulta)) {
-                $usuarios[] = array('usuario' => $usuario, 'insertado' => 'si');
+                $usuarios[] = array('usuario' => $usuario, 'password' => $pass, 'email' => $email, 'telefono' => $telefono, 'insertado' => 'si');
             }
             echo 'Usuario insertado';
         } else {
