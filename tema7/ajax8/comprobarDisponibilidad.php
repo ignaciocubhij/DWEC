@@ -1,5 +1,5 @@
 <?php
-    header('Content-Type: application/json; charset=utf-8');
+    header('Content-Type: text/txt; charset=utf-8');
 
     $server = "localhost";
     $BD = "ajax8";
