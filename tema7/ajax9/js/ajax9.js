@@ -2,12 +2,12 @@ document.addEventListener('DOMContentLoaded', finiciar);
 
 function finiciar(e) {
     e.preventDefault();
-    document.getElementById('id_enviar').addEventListener('submit', insertar);
+    document.getElementById('myForm').addEventListener('submit', insertar);
 }
 
 const regex = {
-    usuario: /^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#_*])){8,}$/,
-    pass: /^((?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#_*])){8,}$/,
+    usuario: /^.*(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#_*]).{8,}$/,
+    pass: /^.*(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[#_*]).{8,}$/,
     email: /^(\w+)@([a-zA-Z])+\.([a-zA-Z]){2,3}$/,
     telefono: /^(\d){9}$/
 }
@@ -21,7 +21,7 @@ const errorMessages = {
 
 function insertar(e) {
     e.preventDefault();
-    console.log('insertando...');
+
     var id_usuario = document.getElementById('id_usuario');
     var id_pass = document.getElementById('id_pass');
     var id_email = document.getElementById('id_email');
@@ -32,22 +32,23 @@ function insertar(e) {
     clearErrorMessage('id_err_email');
     clearErrorMessage('id_err_telefono');
 
-    validateAndDisplayError(id_usuario, regex.usuario, 'id_err_usuario', errorMessages.usuario);
-    validateAndDisplayError(id_pass, regex.pass, 'id_err_pass', errorMessages.pass);
-    validateAndDisplayError(id_email, regex.email, 'id_err_email', errorMessages.email);
-    validateAndDisplayError(id_telefono, regex.telefono, 'id_err_telefono', errorMessages.telefono);
+    var validationErrors = [];
 
-    if (!hasValidationErrors()) {
-        document.getElementById('id_enviar').submit();
-        console.log('error');
+    validateAndDisplayError(id_usuario, regex.usuario, 'id_err_usuario', errorMessages.usuario, validationErrors);
+    validateAndDisplayError(id_pass, regex.pass, 'id_err_pass', errorMessages.pass, validationErrors);
+    validateAndDisplayError(id_email, regex.email, 'id_err_email', errorMessages.email, validationErrors);
+    validateAndDisplayError(id_telefono, regex.telefono, 'id_err_telefono', errorMessages.telefono, validationErrors);
 
+    if (validationErrors.length === 0) {
+        // No validation errors, proceed with form submission
         loadDoc('ajax9.php', 'POST', 'enviar=1&nocache=' + Math.random() + '&usuario=' + encodeURIComponent(id_usuario.value) + '&pass=' + encodeURIComponent(id_pass.value) + '&email=' + id_email.value + '&telefono=' + id_telefono.value, mostrar);
     }
 }
 
-function validateAndDisplayError(input, regex, errorId, errorMessage) {
+function validateAndDisplayError(input, regex, errorId, errorMessage, validationErrors) {
     if (!regex.test(input.value)) {
         displayErrorMessage(errorId, errorMessage);
+        validationErrors.push(errorId);
     }
 }
 
@@ -57,15 +58,6 @@ function displayErrorMessage(errorId, errorMessage) {
 
 function clearErrorMessage(errorId) {
     document.getElementById(errorId).innerText = '';
-}
-
-function hasValidationErrors() {
-    return (
-        document.getElementById('id_err_usuario').innerText ||
-        document.getElementById('id_err_pass').innerText ||
-        document.getElementById('id_err_email').innerText ||
-        document.getElementById('id_err_telefono').innerText
-    );
 }
 
 function loadDoc(url, method, params, cFunction) {

@@ -6,7 +6,12 @@ $BD = "p4";
 $user = "root";
 $password = "";
 
-$conexion = mysqli_connect($server, $user, $password, $BD) or die("error en la conexión");
+$conexion = mysqli_connect($server, $user, $password, $BD);
+
+if (!$conexion) {
+    die(json_encode(array('error' => 'Error en la conexión')));
+}
+
 mysqli_set_charset($conexion, "utf8");
 
 if (isset($_POST['enviar'])) {
@@ -24,14 +29,13 @@ if (isset($_POST['enviar'])) {
     if (mysqli_num_rows($checkUserResult) > 0) {
         echo json_encode(array('error' => 'El usuario ya existe'));
     } else {
-        $insertSql = "INSERT INTO datos (usuario, contrasena, email, telefono, fecha) VALUES (?, ?, ?, ?, curdate())";
+        $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
+
+        $insertSql = "INSERT INTO datos (usuario, contrasena, email, telefono, fecha) VALUES (?, ?, ?, ?, CURDATE())";
         $insertStmt = mysqli_prepare($conexion, $insertSql);
 
         if ($insertStmt) {
-            $decodedUsuario = json_decode($usuario);
-            $decodedPass = json_decode($pass);
-
-            mysqli_stmt_bind_param($insertStmt, "ssss", $decodedUsuario, $decodedPass, $email, $telefono);
+            mysqli_stmt_bind_param($insertStmt, "ssss", $usuario, $hashedPass, $email, $telefono);
 
             if (mysqli_stmt_execute($insertStmt)) {
                 echo json_encode(array('message' => 'Usuario insertado'));
@@ -47,6 +51,6 @@ if (isset($_POST['enviar'])) {
 
     mysqli_close($conexion);
 } else {
-    echo json_encode(array('error' => 'Login parameter is missing.'));
+    echo json_encode(array('error' => 'Enviar is not set'));
 }
 ?>
