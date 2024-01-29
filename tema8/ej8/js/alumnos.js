@@ -7,7 +7,7 @@ $(document).ready(function(){
         dataType: 'json',
         success: function(response) {
             $(response).each(function(index, elem) {
-                $('<option></option>').appendTo('#id_selAsig').text(elem.nombre);
+                $('<option></option>').appendTo('#id_selAsig').text(elem.nombre).attr('value', elem.clave_asignatura);
             })
         }
     })
@@ -15,7 +15,7 @@ $(document).ready(function(){
     $('#id_mostrar').click(function() {
         $.ajax({
             type: 'GET',
-            data: { "nocache": Math.random(), 'asignatura': $('#id_selAsig option:selected').val() },
+            data: { "nocache": Math.random(), 'idAsignatura': $('#id_selAsig option:selected').attr('value') },
             url: 'php/selectAlumnosByAsig.php',
             dataType: 'json',
             success: function(response) {

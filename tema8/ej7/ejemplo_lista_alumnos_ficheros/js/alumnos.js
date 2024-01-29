@@ -24,9 +24,8 @@ $(document).ready(function () {
         if ($(e.target).attr('id_pos')) {
             $.ajax({
                 type: 'GET',
-                data: { "nocache": Math.random(), "id": e.target.attr('id_pos')},
+                data: { "nocache": Math.random(), "id": $(e.target).attr('id_pos')},
                 url: 'php/deleteAlumnos.php',
-                dataType: 'json',
                 success: function(){
                     console.log('Borrado!');
                     listar_alumnos();

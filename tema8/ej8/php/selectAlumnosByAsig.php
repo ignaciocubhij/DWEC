@@ -3,11 +3,11 @@
     $db = 'escuela';
     $conexion = conectar($db);
 
-    $parametros = array(':nombre' => $_GET['asignatura']);
+    $parametros = array(':idAsignatura' => $_GET['idAsignatura']);
     $sql = "SELECT a.* FROM alumnos a 
             JOIN matriculas m USING(clave_alumno) 
             JOIN asignaturas asig ON m.clave_asignatura = asig.clave_asignatura 
-            WHERE asig.nombre = :nombre";
+            WHERE asig.clave_asignatura = :idAsignatura";
     $pdo = $conexion->prepare($sql);
     $pdo->execute($parametros);
 
