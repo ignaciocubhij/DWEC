@@ -1,0 +1,22 @@
+:root{
+    --azul: #0f6eea;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+nav{
+    background-color: var(--azul);
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+section {
+    padding: 10px;
+    display: flex;
+}
+section #id_anadir{
+    background-color: var(--azul);
+    padding: 10px;
+    border: none;
+}
