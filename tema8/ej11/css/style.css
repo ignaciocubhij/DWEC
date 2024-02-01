@@ -4,6 +4,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 nav{
     background-color: var(--azul);
@@ -13,10 +14,39 @@ nav{
 }
 section {
     padding: 10px;
+    height: 50vh;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 section #id_anadir{
     background-color: var(--azul);
     padding: 10px;
     border: none;
+}
+
+#id_contenedor {
+    position: relative;
+}
+
+textarea{
+    resize: none;
+}
+
+#id_form{
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#id_form *{
+    border: 1px solid black;
+    width: 100%;
 }
