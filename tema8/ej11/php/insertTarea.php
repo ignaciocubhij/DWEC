@@ -9,7 +9,7 @@ if(isset($_POST["enviar"])){
     $pdo = $conexion->prepare($sql);
     $pdo->execute($parametros);
 
-    echo json_encode([message => 'insertado']);
+    echo json_encode(message: 'insertado');
 
 }
 

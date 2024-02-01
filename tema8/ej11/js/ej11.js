@@ -46,6 +46,8 @@ $(document).ready(function () {
             .append("<textarea name='descripcion' id='id_descripcion' cols='30' rows='10' placeholder='Descripcion'></textarea>")
             .append(`<input type='submit' name='enviar' id='id_conf_anadir' value='Confirmar'/>`)
             .appendTo("#id_bAnadir")
+            .on('submit', function (e) {e.preventDefault()
+                anadirNota(titulo, descripcion); });
     })
 
     //funcion de borrar nota
@@ -84,13 +86,28 @@ $(document).ready(function () {
         })
     }
 
-    $("#")
+    function anadirNota(titulo, descripcion) {
+        $.ajax({
+            type: "POST",
+            url: "php/insertTarea.php",
+            data: { "nocache": Math.random(), "titulo": titulo, "descripcion": descripcion },
+            async: true,
+            dataType: "json",
+            success: function (response) {
+                alert(response.data.message);
+            },
+            error: function () {
+                alert("insercion fallida");
+            }
+        })
+    }
 
-    let titulo = $("#id_titulo").val()
-    let descripcion = $("#id_descripcion").val()
+    let titulo = $("#id_titulo").val();
+    let descripcion = $("#id_descripcion").val();
 
     $("#actualizar").on("click", function () { actualizarNota(); });
     $("#borrar").on("click", function () { borrarNota(); });
-    $('#id_form').on('submit', function () { anadirNota(titulo, descripcion); });
+    $('#id_form').on('submit', function (e) {e.preventDefault()
+         anadirNota(titulo, descripcion); });
 
 })
