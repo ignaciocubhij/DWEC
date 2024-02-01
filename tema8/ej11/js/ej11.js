@@ -10,7 +10,7 @@ $(document).ready(function () {
             async: true,
             dataType: "json",
             success: function (respuesta) {
-                $('#id_tbody').empty();
+                $('#id_tbody').empty()
                 $(respuesta).each(function () {
                     $("<tr></tr>")
                         .append(`<td>${this.id_nota}</td>`)
@@ -29,8 +29,9 @@ $(document).ready(function () {
     }
 
     $("#id_anadir").click(function () {
+        $("#id_bAnadir").empty()
         $("<form></form>")
-            .append("<input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'")
+            .append("<input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'>")
             .append("<textarea name='descripcion' id='id_descripcion' cols='30' rows='10'></textarea>")
             .appendTo("#id_bAnadir")
     })
@@ -40,7 +41,7 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "php/selectTarea.php",
-            data: { "nocache": Math.random() },
+            data: {"nocache": Math.random() },
             async: true,
             dataType: "json",
             success: function (respuesta) {
