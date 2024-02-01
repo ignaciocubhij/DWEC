@@ -44,7 +44,7 @@ $(document).ready(function () {
         $("<form id='id_form'></form>")
             .append("<input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'>")
             .append("<textarea name='descripcion' id='id_descripcion' cols='30' rows='10' placeholder='Descripcion'></textarea>")
-            .append(`<input type='button' name='enviar' id='id_conf_anadir' value='Confirmar'/>`)
+            .append(`<input type='submit' name='enviar' id='id_conf_anadir' value='Confirmar'/>`)
             .appendTo("#id_bAnadir")
     })
 
@@ -84,28 +84,13 @@ $(document).ready(function () {
         })
     }
 
-    function anadirNota(titulo, descripcion) {
-        console.log("Llego");
-        $.ajax({
-            type: "POST",
-            url: "php/insertTarea.php",
-            data: { "nocache": Math.random(), "titulo": titulo, "descripcion": descripcion },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert('Nota insertada');
-                listarNotas();
-            },
-            error: function () {
-                alert("Inserccion fallida")
-            }
-        })
-    }
+    $("#")
 
-    let titulo = $("tr td").
+    let titulo = $("#id_titulo").val()
+    let descripcion = $("#id_descripcion").val()
 
     $("#actualizar").on("click", function () { actualizarNota(); });
     $("#borrar").on("click", function () { borrarNota(); });
-    $('#id_conf_anadir').on('click', function () { anadirNota(); });
+    $('#id_form').on('submit', function () { anadirNota(titulo, descripcion); });
 
 })

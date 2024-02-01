@@ -50,3 +50,9 @@ textarea{
     border: 1px solid black;
     width: 100%;
 }
+table button{
+    border: none;
+}
+#actualizar {
+    background-color: #ff0;
+}

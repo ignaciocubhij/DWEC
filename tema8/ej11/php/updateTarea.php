@@ -10,6 +10,6 @@ if(isset($_POST["modificar"])){
     $pdo = $conexion->prepare($sql);
     $pdo->exeute($parametros);
 
-    echo json_encode(message: "Modificado");
+    echo json_encode([message => "Modificado"]);
 }
 ?>
