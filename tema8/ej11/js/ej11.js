@@ -16,7 +16,7 @@ $(document).ready(function () {
                         .append(`<td>${this.titulo}</td>`)
                         .append(`<td>${this.descripcion}</td>`)
                         .append(`<td><button name='modificar' id='actualizar'>Modificar</button></td>`)
-                        .append(`<td><button name='eliminar' id='borrar'>Eliminar</button></td>`)
+                        .append(`<td><button name='eliminar' id_del='${this.id_nota}'>Eliminar</button></td>`)
                         .appendTo("#id_tbody")
                 })
             },
@@ -31,7 +31,6 @@ $(document).ready(function () {
             type: "POST",
             url: "php/buscarTarea.php",
             data: { "nocache": Math.random(), "buscar": $('#buscarInput').val() },
-            async: true,
             dataType: "json",
             success: function (respuesta) {
                 $('#id_tbody').empty(); //modificar
@@ -49,22 +48,20 @@ $(document).ready(function () {
     })
 
     //funcion de borrar nota
-    function borrarNota(id) {
+    $('table').on('click', function(){
         $.ajax({
-            type: "POST",
-            url: "php/deleteTarea.php",
-            data: { "nocache": Math.random(), "id_nota": id },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert('Nota borrada');
-                listarNotas()
+            type: 'POST',
+            data: { "nocache": Math.random(), "id_nota": $(this).attr('id_del')},
+            url: 'php/deleteTarea.php',
+            success: function(response){
+                console.log('borrado');
+                listarNotas();
             },
-            error: function () {
-                alert("Borrado fallido")
+            error: function(){
+                console.log('Error al borrar');
             }
-        })
-    }
+        });
+    });    
 
     //funcion de actualizar
     function actualizarNota(id, titulo, descripcion) {
@@ -102,10 +99,7 @@ $(document).ready(function () {
         })
     }
 
-    let titulo = $("tr td").
-
     $("#actualizar").on("click", function () { actualizarNota(); });
-    $("#borrar").on("click", function () { borrarNota(); });
     $('#id_conf_anadir').on('click', function () { anadirNota(); });
 
 })

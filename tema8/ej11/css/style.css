@@ -50,3 +50,16 @@ textarea{
     border: 1px solid black;
     width: 100%;
 }
+table button{
+    border: none;
+    padding: 10px;
+}
+table td{
+    padding: 10px;
+}
+#actualizar {
+    background-color: #ffe600;
+}
+#borrar{
+    background-color: #e73838;
+}
