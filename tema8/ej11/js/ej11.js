@@ -81,14 +81,11 @@ $(document).ready(function () {
         var titulo = $(this).closest('tr').find('td:eq(1)').text();
         var descripcion = $(this).closest('tr').find('td:eq(2)').text();
     
-        // Rellenar los campos del formulario con los valores existentes
         $('#id_titulo').val(titulo);
         $('#id_descripcion').val(descripcion);
     
-        // Almacenar el id_nota como un atributo de datos para su uso posterior
         $('#id_form').data('id_nota', id_nota);
     
-        // Cambiar el texto del botón de submit para indicar que es una actualización
         $('#submit_button').text('Actualizar Nota');
         $('#id_form').css('display', 'block');
     });
@@ -115,7 +112,7 @@ $(document).ready(function () {
                     console.log('Nota actualizada');
                     listarNotas();
                     $('#id_form').css('display', 'none');
-                    $('#submit_button').text('Añadir Nota'); // Restaurar el texto original del botón
+                    $('#submit_button').text('Añadir Nota');
                 },
                 error: function () {
                     console.log("Actualización fallida");
