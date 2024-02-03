@@ -1,7 +1,4 @@
 <?php
-
-
-    if(isset($_POST["id_nota"])){
         require_once("db.php");
         $db = "notas";
 
@@ -10,5 +7,7 @@
         $sql = "DELETE FROM notas WHERE id_nota = :id_nota";
         $pdo = $conexion->prepare($sql);
         $pdo->execute($parametros);
-    }
+
+        $datos = $pdo->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($datos);
 ?>

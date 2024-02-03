@@ -15,8 +15,8 @@ $(document).ready(function () {
                         .append(`<td>${this.id_nota}</td>`)
                         .append(`<td>${this.titulo}</td>`)
                         .append(`<td>${this.descripcion}</td>`)
-                        .append(`<td><button name='modificar' id='actualizar'>Modificar</button></td>`)
-                        .append(`<td><button name='eliminar' id_del='${this.id_nota}'>Eliminar</button></td>`)
+                        .append(`<td><button name='modificar' class='update' id_mod='${this.id_nota}'>Modificar</button></td>`)
+                        .append(`<td><button name='eliminar' class='delete' id_del='${this.id_nota}'>Eliminar</button></td>`)
                         .appendTo("#id_tbody")
                 })
             },
@@ -26,6 +26,7 @@ $(document).ready(function () {
         })
     }
 
+    //buscar nota
     $('#buscarInput').on("keyup", function () {
         $.ajax({
             type: "POST",
@@ -33,73 +34,109 @@ $(document).ready(function () {
             data: { "nocache": Math.random(), "buscar": $('#buscarInput').val() },
             dataType: "json",
             success: function (respuesta) {
-                $('#id_tbody').empty(); //modificar
+                $('#id_tbody').empty()
+                $(respuesta).each(function () {
+                    $("<tr></tr>")
+                        .append(`<td>${this.id_nota}</td>`)
+                        .append(`<td>${this.titulo}</td>`)
+                        .append(`<td>${this.descripcion}</td>`)
+                        .append(`<td><button name='modificar' class='update' id_mod='${this.id_nota}'>Modificar</button></td>`)
+                        .append(`<td><button name='eliminar' class='delete' id_del='${this.id_nota}'>Eliminar</button></td>`)
+                        .appendTo("#id_tbody")
+                })
             }
         })
     })
 
+    //aparecer el formulario
     $("#id_anadir").click(function () {
-        $("#id_bAnadir").empty()
-        $("<form id='id_form'></form>")
-            .append("<input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'>")
-            .append("<textarea name='descripcion' id='id_descripcion' cols='30' rows='10' placeholder='Descripcion'></textarea>")
-            .append(`<input type='button' name='enviar' id='id_conf_anadir' value='Confirmar'/>`)
-            .appendTo("#id_bAnadir")
+        $('#id_form').css('display', 'block');
     })
 
+    
     //funcion de borrar nota
-    $('table').on('click', function(){
+    $('table').on('click', 'button[name="eliminar"]', function () {
+        let id_nota = $(this).attr('id_del');
+
         $.ajax({
             type: 'POST',
-            data: { "nocache": Math.random(), "id_nota": $(this).attr('id_del')},
+            data: { "nocache": Math.random(), "id_nota": id_nota },
             url: 'php/deleteTarea.php',
-            success: function(response){
+            dataType: 'json',
+            success: function (response) {
                 console.log('borrado');
+                console.log(response);
                 listarNotas();
             },
-            error: function(){
+            error: function () {
                 console.log('Error al borrar');
             }
         });
-    });    
+    });
 
-    //funcion de actualizar
-    function actualizarNota(id, titulo, descripcion) {
-        $.ajax({
-            type: "POST",
-            url: "php/updateTarea.php",
-            data: { "nocache": Math.random(), "id_nota": id, "titulo": titulo, "descripcion": descripcion },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert("Nota modificada");
-                listarNotas();
-            },
-            error: function () {
-                alert("Modificacion fallida");
-            }
-        })
-    }
 
-    function anadirNota(titulo, descripcion) {
-        console.log("Llego");
-        $.ajax({
-            type: "POST",
-            url: "php/insertTarea.php",
-            data: { "nocache": Math.random(), "titulo": titulo, "descripcion": descripcion },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert('Nota insertada');
-                listarNotas();
-            },
-            error: function () {
-                alert("Inserccion fallida")
-            }
-        })
-    }
+    //funcion de modificar
+    $('table').on('click', 'button[name="modificar"]', function () {
+        var id_nota = $(this).closest('tr').find('td:first').text();
+        var titulo = $(this).closest('tr').find('td:eq(1)').text();
+        var descripcion = $(this).closest('tr').find('td:eq(2)').text();
+    
+        // Rellenar los campos del formulario con los valores existentes
+        $('#id_titulo').val(titulo);
+        $('#id_descripcion').val(descripcion);
+    
+        // Almacenar el id_nota como un atributo de datos para su uso posterior
+        $('#id_form').data('id_nota', id_nota);
+    
+        // Cambiar el texto del botón de submit para indicar que es una actualización
+        $('#submit_button').text('Actualizar Nota');
+        $('#id_form').css('display', 'block');
+    });
+    
 
-    $("#actualizar").on("click", function () { actualizarNota(); });
-    $('#id_conf_anadir').on('click', function () { anadirNota(); });
-
+    //funcion de añadir
+    $('#id_form').on('submit', function (e) {
+        e.preventDefault();
+        let id_nota = $('#id_form').data('id_nota');
+    
+        let ajaxData = {
+            "nocache": Math.random(),
+            "titulo": $('#id_titulo').val(),
+            "descripcion": $("#id_descripcion").val()
+        };
+    
+        if (id_nota) {
+            ajaxData.id_nota = id_nota;
+            $.ajax({
+                type: "POST",
+                url: "php/updateTarea.php",
+                data: ajaxData,
+                success: function () {
+                    console.log('Nota actualizada');
+                    listarNotas();
+                    $('#id_form').css('display', 'none');
+                    $('#submit_button').text('Añadir Nota'); // Restaurar el texto original del botón
+                },
+                error: function () {
+                    console.log("Actualización fallida");
+                }
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "php/insertTarea.php",
+                data: ajaxData,
+                success: function () {
+                    console.log('Nota insertada');
+                    listarNotas();
+                    $('#id_form').css('display', 'none');
+                    $('#submit_button').text('Añadir Nota');
+                    $('#id_form').trigger('reset');
+                },
+                error: function () {
+                    console.log("Inserción fallida");
+                }
+            });
+        }
+    });
 })

@@ -7,8 +7,7 @@ $parametros = array(":titulo" => $_POST["titulo"], ":descripcion" => $_POST["des
 $sql = "INSERT INTO notas(titulo, descripcion) VALUES(:titulo, :descripcion)";
 $pdo = $conexion->prepare($sql);
 $pdo->execute($parametros);
-if(isset($_POST["enviar"])){
 
-}
-
+$datos = $pdo->fetchAll(PDO::FETCH_ASSOC);
+echo json_encode($datos);
 ?>
