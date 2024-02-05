@@ -53,11 +53,7 @@ $(document).ready(function () {
         $('#id_form').css('display', 'grid', 'gap', '10px');
         $('#id_form').trigger('reset');
         $('#id_conf_anadir').val('Añadir Nota');
-    })
-    
-    $('#id_form').on('blur', function(){
-        $('#id_form').css('display', 'none');
-    })
+    })    
     
     //funcion de borrar nota
     $('table').on('click', 'button[name="eliminar"]', function () {
