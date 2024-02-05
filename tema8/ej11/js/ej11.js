@@ -15,8 +15,8 @@ $(document).ready(function () {
                         .append(`<td>${this.id_nota}</td>`)
                         .append(`<td>${this.titulo}</td>`)
                         .append(`<td>${this.descripcion}</td>`)
-                        .append(`<td><button name='modificar' id='actualizar'>Modificar</button></td>`)
-                        .append(`<td><button name='eliminar' id='borrar'>Eliminar</button></td>`)
+                        .append(`<td><button name='modificar' class='update' id_mod='${this.id_nota}'>Modificar</button></td>`)
+                        .append(`<td><button name='eliminar' class='delete' id_del='${this.id_nota}'>Eliminar</button></td>`)
                         .appendTo("#id_tbody")
                 })
             },
@@ -26,88 +26,115 @@ $(document).ready(function () {
         })
     }
 
+    //buscar nota
     $('#buscarInput').on("keyup", function () {
         $.ajax({
             type: "POST",
             url: "php/buscarTarea.php",
             data: { "nocache": Math.random(), "buscar": $('#buscarInput').val() },
-            async: true,
             dataType: "json",
             success: function (respuesta) {
-                $('#id_tbody').empty(); //modificar
+                $('#id_tbody').empty()
+                $(respuesta).each(function () {
+                    $("<tr></tr>")
+                        .append(`<td>${this.id_nota}</td>`)
+                        .append(`<td>${this.titulo}</td>`)
+                        .append(`<td>${this.descripcion}</td>`)
+                        .append(`<td><button name='modificar' class='update' id_mod='${this.id_nota}'>Modificar</button></td>`)
+                        .append(`<td><button name='eliminar' class='delete' id_del='${this.id_nota}'>Eliminar</button></td>`)
+                        .appendTo("#id_tbody")
+                })
             }
         })
     })
 
+    //aparecer el formulario
     $("#id_anadir").click(function () {
-        $("#id_bAnadir").empty()
-        $("<form id='id_form'></form>")
-            .append("<input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'>")
-            .append("<textarea name='descripcion' id='id_descripcion' cols='30' rows='10' placeholder='Descripcion'></textarea>")
-            .append(`<input type='submit' name='enviar' id='id_conf_anadir' value='Confirmar'/>`)
-            .appendTo("#id_bAnadir")
-            .on('submit', function (e) {e.preventDefault()
-                anadirNota(titulo, descripcion); });
+        $('#id_form').css('display', 'block');
     })
 
+    
     //funcion de borrar nota
-    function borrarNota(id) {
-        $.ajax({
-            type: "POST",
-            url: "php/deleteTarea.php",
-            data: { "nocache": Math.random(), "id_nota": id },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert('Nota borrada');
-                listarNotas()
-            },
-            error: function () {
-                alert("Borrado fallido")
-            }
-        })
-    }
+    $('table').on('click', 'button[name="eliminar"]', function () {
+        let id_nota = $(this).attr('id_del');
 
-    //funcion de actualizar
-    function actualizarNota(id, titulo, descripcion) {
         $.ajax({
-            type: "POST",
-            url: "php/updateTarea.php",
-            data: { "nocache": Math.random(), "id_nota": id, "titulo": titulo, "descripcion": descripcion },
-            async: true,
-            dataType: "json",
-            success: function () {
-                alert("Nota modificada");
+            type: 'POST',
+            data: { "nocache": Math.random(), "id_nota": id_nota },
+            url: 'php/deleteTarea.php',
+            dataType: 'json',
+            success: function (response) {
+                console.log('borrado');
+                console.log(response);
                 listarNotas();
             },
             error: function () {
-                alert("Modificacion fallida");
+                console.log('Error al borrar');
             }
-        })
-    }
+        });
+    });
 
-    function anadirNota(titulo, descripcion) {
-        $.ajax({
-            type: "POST",
-            url: "php/insertTarea.php",
-            data: { "nocache": Math.random(), "titulo": titulo, "descripcion": descripcion },
-            async: true,
-            dataType: "json",
-            success: function (response) {
-                alert(response.data.message);
-            },
-            error: function () {
-                alert("insercion fallida");
-            }
-        })
-    }
 
-    let titulo = $("#id_titulo").val();
-    let descripcion = $("#id_descripcion").val();
+    //funcion de modificar
+    $('table').on('click', 'button[name="modificar"]', function () {
+        var id_nota = $(this).closest('tr').find('td:first').text();
+        var titulo = $(this).closest('tr').find('td:eq(1)').text();
+        var descripcion = $(this).closest('tr').find('td:eq(2)').text();
+    
+        $('#id_titulo').val(titulo);
+        $('#id_descripcion').val(descripcion);
+    
+        $('#id_form').data('id_nota', id_nota);
+    
+        $('#submit_button').text('Actualizar Nota');
+        $('#id_form').css('display', 'block');
+    });
+    
 
-    $("#actualizar").on("click", function () { actualizarNota(); });
-    $("#borrar").on("click", function () { borrarNota(); });
-    $('#id_form').on('submit', function (e) {e.preventDefault()
-         anadirNota(titulo, descripcion); });
-
+    //funcion de añadir
+    $('#id_form').on('submit', function (e) {
+        e.preventDefault();
+        let id_nota = $('#id_form').data('id_nota');
+    
+        let ajaxData = {
+            "nocache": Math.random(),
+            "titulo": $('#id_titulo').val(),
+            "descripcion": $("#id_descripcion").val()
+        };
+    
+        if (id_nota) {
+            ajaxData.id_nota = id_nota;
+            $.ajax({
+                type: "POST",
+                url: "php/updateTarea.php",
+                data: ajaxData,
+                success: function () {
+                    console.log('Nota actualizada');
+                    listarNotas();
+                    $('#id_form').css('display', 'none');
+                    $('#submit_button').text('Añadir Nota');
+                    $('#id_form').trigger('reset');
+                },
+                error: function () {
+                    console.log("Actualización fallida");
+                }
+            });
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "php/insertTarea.php",
+                data: ajaxData,
+                success: function () {
+                    console.log('Nota insertada');
+                    listarNotas();
+                    $('#id_form').css('display', 'none');
+                    $('#submit_button').text('Añadir Nota');
+                    $('#id_form').trigger('reset');
+                },
+                error: function () {
+                    console.log("Inserción fallida");
+                }
+            });
+        }
+    });
 })

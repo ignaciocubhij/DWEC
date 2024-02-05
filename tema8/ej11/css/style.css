@@ -12,17 +12,26 @@ nav{
     justify-content: space-between;
     padding: 15px;
 }
+nav #id_filtro *{
+    padding: 5px;
+    margin: 2px;
+}
+
 section {
     padding: 10px;
     height: 50vh;
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
+}    
 section #id_anadir{
     background-color: var(--azul);
     padding: 10px;
     border: none;
+}
+
+section #id_anadir:hover{
+    cursor: pointer;
 }
 
 #id_contenedor {
@@ -34,7 +43,7 @@ textarea{
 }
 
 #id_form{
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 200px;
     align-items: center;
@@ -57,9 +66,13 @@ table button{
 table td{
     padding: 10px;
 }
-#actualizar {
+.update {
     background-color: #ffe600;
 }
-#borrar{
+.delete{
     background-color: #e73838;
+}
+
+#id_conf_anadir{
+    background-color: var(--azul);
 }

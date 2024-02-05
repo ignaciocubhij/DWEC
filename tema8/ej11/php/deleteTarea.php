@@ -1,9 +1,7 @@
 <?php
-    require_once("db.php");
+        require_once("db.php");
+        $db = "notas";
 
-    $db = "notas";
-
-    if(isset($_POST["eliminar"])){
         $conexion = conectar($db);
         $parametros = array(":id_nota" => $_POST["id_nota"]);
         $sql = "DELETE FROM notas WHERE id_nota = :id_nota";
@@ -11,6 +9,5 @@
         $pdo->execute($parametros);
 
         $datos = $pdo->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode([message => "Borrado"]);
-    }
+        echo json_encode($datos);
 ?>
