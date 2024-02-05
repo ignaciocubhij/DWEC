@@ -112,7 +112,7 @@ $(document).ready(function () {
                     console.log('Nota actualizada');
                     listarNotas();
                     $('#id_form').css('display', 'none');
-                    $('#submit_button').text('Añadir Nota');
+                    $('#id_form').trigger('reset');
                 },
                 error: function () {
                     console.log("Actualización fallida");
@@ -127,7 +127,6 @@ $(document).ready(function () {
                     console.log('Nota insertada');
                     listarNotas();
                     $('#id_form').css('display', 'none');
-                    $('#submit_button').text('Añadir Nota');
                     $('#id_form').trigger('reset');
                 },
                 error: function () {
