@@ -50,11 +50,15 @@ $(document).ready(function () {
 
     //aparecer el formulario
     $("#id_anadir").click(function () {
-        $('#id_form').css('display', 'grid', 'gap', '10px');
+        $('#id_form').css('display', 'flex', 'gap', '10px');
         $('#id_form').trigger('reset');
         $('#id_conf_anadir').val('Añadir Nota');
-    })    
-    
+    })
+
+    $("#id_cerrar").on("click", function(){
+        $("#id_form").css("display", "none");
+    })
+
     //funcion de borrar nota
     $('table').on('click', 'button[name="eliminar"]', function () {
         let id_nota = $(this).attr('id_del');
@@ -64,8 +68,9 @@ $(document).ready(function () {
             data: { "nocache": Math.random(), "id_nota": id_nota },
             url: 'php/deleteTarea.php',
             dataType: 'json',
-            success: function (response) {
+            success: function () {
                 console.log('borrado');
+                $('#id_form').trigger('reset');
                 listarNotas();
             },
             error: function () {
@@ -77,20 +82,21 @@ $(document).ready(function () {
     
     //funcion de modificar
     $('table').on('click', 'button[name="modificar"]', function () {
-        let id_nota = $(this).closest('tr').find('td:first').text();
-        let titulo = $(this).closest('tr').find('td:eq(1)').text();
-        let descripcion = $(this).closest('tr').find('td:eq(2)').text();
-    
+        var id_nota = $(this).closest('tr').find('td:first').text();
+        var titulo = $(this).closest('tr').find('td:eq(1)').text();
+        var descripcion = $(this).closest('tr').find('td:eq(2)').text();
+
         $('#id_titulo').val(titulo);
         $('#id_descripcion').val(descripcion);
     
         $('#id_form').data('id_nota', id_nota);
     
-        $('#id_conf_anadir').val('Actualizar Nota');
         $('#id_form').css({
-            'display': 'grid',
+            'display': 'flex',
             'gap': '10px'
-        });
+          });
+          
+        $('#id_conf_anadir').val('Actualizar Nota');
     });
     
 
