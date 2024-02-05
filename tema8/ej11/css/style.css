@@ -21,7 +21,7 @@ nav{
     justify-content: space-between;
     padding: 15px;
 }
-input {
+input, textarea {
     outline: none;
 }
 nav #id_filtro input{
