@@ -50,14 +50,19 @@ $(document).ready(function () {
 
     //aparecer el formulario
     $("#id_anadir").click(function () {
-        $('#id_form').css('display', 'block');
+        $('#id_form').css('display', 'grid', 'gap', '10px');
+        $('#id_form').trigger('reset');
+        $('#id_conf_anadir').val('Añadir Nota');
     })
-
+    
+    $('#id_form').on('blur', function(){
+        $('#id_form').css('display', 'none');
+    })
     
     //funcion de borrar nota
     $('table').on('click', 'button[name="eliminar"]', function () {
         let id_nota = $(this).attr('id_del');
-
+        
         $.ajax({
             type: 'POST',
             data: { "nocache": Math.random(), "id_nota": id_nota },
@@ -65,7 +70,6 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 console.log('borrado');
-                console.log(response);
                 listarNotas();
             },
             error: function () {
@@ -73,21 +77,24 @@ $(document).ready(function () {
             }
         });
     });
-
-
+    
+    
     //funcion de modificar
     $('table').on('click', 'button[name="modificar"]', function () {
-        var id_nota = $(this).closest('tr').find('td:first').text();
-        var titulo = $(this).closest('tr').find('td:eq(1)').text();
-        var descripcion = $(this).closest('tr').find('td:eq(2)').text();
+        let id_nota = $(this).closest('tr').find('td:first').text();
+        let titulo = $(this).closest('tr').find('td:eq(1)').text();
+        let descripcion = $(this).closest('tr').find('td:eq(2)').text();
     
         $('#id_titulo').val(titulo);
         $('#id_descripcion').val(descripcion);
     
         $('#id_form').data('id_nota', id_nota);
     
-        $('#submit_button').text('Actualizar Nota');
-        $('#id_form').css('display', 'block');
+        $('#id_conf_anadir').val('Actualizar Nota');
+        $('#id_form').css({
+            'display': 'grid',
+            'gap': '10px'
+        });
     });
     
 
@@ -112,29 +119,32 @@ $(document).ready(function () {
                     console.log('Nota actualizada');
                     listarNotas();
                     $('#id_form').css('display', 'none');
-                    $('#submit_button').text('Añadir Nota');
                     $('#id_form').trigger('reset');
+                    $('#id_form').data('id_nota', null);
                 },
                 error: function () {
                     console.log("Actualización fallida");
                 }
             });
         } else {
-            $.ajax({
-                type: "POST",
-                url: "php/insertTarea.php",
-                data: ajaxData,
-                success: function () {
-                    console.log('Nota insertada');
-                    listarNotas();
-                    $('#id_form').css('display', 'none');
-                    $('#submit_button').text('Añadir Nota');
-                    $('#id_form').trigger('reset');
-                },
-                error: function () {
-                    console.log("Inserción fallida");
-                }
-            });
+            if ($('#id_titulo').val() != '' && $('#id_descripcion').val() != '') {
+                $.ajax({
+                    type: "POST",
+                    url: "php/insertTarea.php",
+                    data: ajaxData,
+                    success: function () {
+                        console.log('Nota insertada');
+                        listarNotas();
+                        $('#id_form').css('display', 'none');
+                        $('#id_form').trigger('reset');
+                    },
+                    error: function () {
+                        console.log("Inserción fallida");
+                    }
+                });
+            } else {
+                alert('completa los campos');
+            }
         }
     });
 })
