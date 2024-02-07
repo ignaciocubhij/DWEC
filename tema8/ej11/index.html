@@ -13,15 +13,16 @@
         <h1>Gestor de tareas</h1>
 
         <div id="id_filtro">
+            <label for="buscarInput">Buscar por titulo:</label>
             <input type="text" id="buscarInput" name="buscar" placeholder="Buscar...">
-            <input type="submit" value="Buscar" id="buscarBtn">
         </div>
     </nav>
     <section>
         <div id="id_contenedor">
-            <input type="button" name="anadir" id="id_anadir" value="+">
+            <input type="button" name="anadir" id="id_anadir" value="+" title="añadir nota">
             <div id="id_bAnadir">
                 <form id='id_form' method="post">
+                    <span id="id_cerrar">X</span>
                     <input type='text' name='titulo' id='id_titulo' placeholder='Titulo de la Tarea'>
                     <textarea name='descripcion' id='id_descripcion' cols='30' rows='10' placeholder='Descripcion'></textarea>
                     <input type='submit' name='enviar' id='id_conf_anadir' value='Confirmar'/>
@@ -31,10 +32,10 @@
         <table border="1">
             <thead>
                 <tr>
-                    <td>ID</td>
-                    <td>titulo</td>
-                    <td>descripcion</td>
-                    <td colspan="2">Botones</td>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th colspan="2">Acciones</th>
                 </tr>
             </thead>
             <tbody id="id_tbody"></tbody>
