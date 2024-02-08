@@ -80,7 +80,7 @@ $(document).ready(function () {
     });
     
     
-    //funcion de modificar
+    //funcion de mostrar la modificacion
     $('table').on('click', 'button[name="modificar"]', function () {
         var id_nota = $(this).closest('tr').find('td:first').text();
         var titulo = $(this).closest('tr').find('td:eq(1)').text();
@@ -100,7 +100,7 @@ $(document).ready(function () {
     });
     
 
-    //funcion de añadir
+    //funcion de añadir y modificar
     $('#id_form').on('submit', function (e) {
         e.preventDefault();
         let id_nota = $('#id_form').data('id_nota');

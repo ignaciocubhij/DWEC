@@ -1,0 +1,44 @@
+body{
+    background-color: #eee;
+}
+
+div #centro, #centrado, .centrado{
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    font-size: x-large;
+}
+
+a:not(.galeria-track > a){
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    margin: 5px;
+}
+
+#galeria .galeria-track{
+    width: calc(300*4);
+    display: flex;
+}
+
+#galeria a img{
+    width: 300px;
+    height: 200px;
+}
+
+#galeria a{
+    animation: carrusel 10s linear infinite;
+}
+
+@keyframes carrusel {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(calc(-300px * 4));
+    }
+}
