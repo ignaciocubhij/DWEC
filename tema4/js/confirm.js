@@ -46,9 +46,10 @@ window.addEventListener('DOMContentLoaded', function () {
     
     var battery = async () => {
         var bat =  await navigator.getBattery();
-        this.document.getElementById('bateria').innerText = `Bateria: ${bat.level*100}%`;
+        this.document.getElementById('bateria').innerText = `Bateria: ${Math.floor(bat.level*100)}%`;
         this.document.getElementById('porcentaje').style.width = `${bat.level*100}px`;
         bat.level*100 < 20 ? this.document.getElementById('porcentaje').style.backgroundColor = 'red' : bat.level*100 < 50 ? this.document.getElementById('porcentaje').style.backgroundColor = 'yellow' : this.document.getElementById('porcentaje').style.backgroundColor = 'green';
+        bat.charging ? this.document.getElementById('bateria').innerHTML += '<p>Cargando...</p>' : '';
     }
     
     this.setInterval(battery, 1000);
