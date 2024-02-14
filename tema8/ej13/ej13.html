@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            height: 100px;
+            width: 100px;
+            background-color: seagreen;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .tooltip{
+            position: absolute;
+            width: 100px;
+            line-height: 20px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="cuadrado" data-tooltip="Mensaje para el tooltip 1">1</div>
+    <div class="cuadrado" data-tooltip="Mensaje para el tooltip 2">2</div>
+    <div class="cuadrado" data-tooltip="Mensaje para el tooltip 3">3</div>
+    <div class="cuadrado" data-tooltip="Mensaje para el tooltip 4">4</div>
+    <script src="js/ej13.js"></script>
+</body>
+</html>
