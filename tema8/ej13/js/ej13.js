@@ -22,7 +22,7 @@ function crear(e) {
 }
 
 function destruir(e){
-    e.target.removeChild(e.target.firstChild);
+    e.target.removeChild(e.target.querySelector(':first-child'));
 }
 
 function mover(e){
@@ -35,7 +35,8 @@ function mover(e){
 
 function cambiar(e){
     if (e.target.nextSibling !== null) {
-        e.target.parentNode.insertBefore(e.target.lastSibling);
+        e.target.removeChild(e.target.lastChild);
+        e.target.nextSibling.after(e.target);
     }
 }
 
