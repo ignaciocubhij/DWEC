@@ -35,7 +35,7 @@ function mover(e){
 
 function cambiar(e){
     if (e.target.nextSibling !== null) {
-        e.target.removeChild(e.target.lastChild);
+        e.target.removeChild(e.target.querySelector(':last-child'));
         e.target.nextSibling.after(e.target);
     }
 }
