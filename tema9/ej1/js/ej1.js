@@ -17,7 +17,7 @@ function finiciar() {
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             L.control.scale().addTo(map);
-            L.marker([lat, lon], { draggable: true }).addTo(map);
+            L.marker([lat, lon], { draggable: false }).addTo(map);
         },
 
             function (objPositionError) {
