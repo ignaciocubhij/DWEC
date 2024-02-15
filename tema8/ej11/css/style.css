@@ -136,4 +136,143 @@ table tr:hover > td{
 #id_conf_anadir:hover{
     cursor: pointer;
     background-color: #57a1fc;
+=======
+:root{
+    --azul: #0f6eea;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background: radial-gradient(circle at 50%, #001278, #550000);
+    height: calc(100vh);
+}
+h1{
+    color: white;
+    text-transform: uppercase;
+}
+nav{
+    background-color: var(--azul);
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+input, textarea {
+    outline: none;
+}
+nav #id_filtro input{
+    padding: 5px;
+    margin: 2px;
+}
+nav #id_filtro label{
+    color: white;
+}
+
+section {
+    padding: 10px;
+    height: 50vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}    
+section #id_anadir{
+    background-color: var(--azul);
+    padding: 10px;
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    font-size: 20pt;
+}
+
+section #id_anadir:hover{
+    background-color: #57a1fc;
+    cursor: pointer;
+}
+
+#id_contenedor {
+    position: relative;
+}
+
+textarea{
+    resize: none;
+}
+
+#id_form{
+    display: none;
+    flex-direction: column;
+    width: 200px;
+    align-items: end;
+    gap: 10px;
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#id_form *:not(span){
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+}
+#id_form span{
+    background-color: #e73838;
+    width: max-content;
+    padding: 5px;
+    
+
+}
+#id_form span:hover{
+    cursor: pointer;
+}
+table {
+    border-collapse: collapse;
+    box-shadow: 2px 2px 10px 0 white;
+}
+table button{
+    border: none;
+    padding: 10px;
+}
+table td, table th{
+    padding: 10px;
+}
+td{
+    background-color: white;
+}
+th{
+    background-color: var(--azul);
+    color: white;
+}
+table tr:hover > td{
+    color: black;
+    background-color: #ccc;
+}
+.update {
+    background-color: #ffe600;
+}
+.update:hover {
+    cursor: pointer;
+    background-color: #e3d44d;
+}
+.delete{
+    background-color: #e73838;
+}
+
+.delete:hover{
+    background-color: #ef5f5f;
+    cursor: pointer;
+}
+
+#id_conf_anadir{
+    background-color: var(--azul);
+    color:  white;
+}
+
+#id_conf_anadir:hover{
+    cursor: pointer;
+    background-color: #57a1fc;
 }
